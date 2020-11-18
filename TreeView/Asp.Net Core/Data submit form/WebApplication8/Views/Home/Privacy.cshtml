@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+<div id='container' style="margin:0 auto; width:250px;">
+    <ejs-dropdowntree id="treedata" change="onchange">
+        
+        <e-dropdowntree-fields dataSource="ViewBag.dataSource" value="id" parentValue="pid" hasChildren="hasChild" text="name"></e-dropdowntree-fields>
+    </ejs-dropdowntree>
+</div>
+<div id='container' style="margin:0 auto; width:250px;">
+    <ejs-dropdowntree id="treedata1" change="onchange1">
+        <e-dropdowntree-fields dataSource="ViewBag.dataSource" value="id" parentValue="pid" hasChildren="hasChild" text="name"></e-dropdowntree-fields>
+    </ejs-dropdowntree>
+</div>
+<script>
+    function onchange() {
+        alert("change triggered");
+    }
+     function onchange1() {
+        alert("change1 triggered");
+    }
+</script>

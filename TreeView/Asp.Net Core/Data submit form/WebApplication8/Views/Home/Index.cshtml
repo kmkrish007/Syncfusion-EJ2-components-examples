@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+@model WebApplication8.Controllers.SampleModel
+
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="SaveData">
+    <input type="hidden" name="checkTree" id="checkTree">
+        <ejs-treeview id="treedata" showCheckBox="true" nodeChecked="nodeChecked">
+            <e-treeview-fields dataSource="ViewBag.dataSource" id="id" parentId="pid" text="name" hasChildren="hasChild" expanded="expanded"></e-treeview-fields>
+        </ejs-treeview>
+    <input type="submit" value="save" />
+</form>
+
+<button onclick="getChekced()">Get checked nodes</button>
+
+<script>
+    function getChekced() {
+        var TreeObj = document.getElementById("treedata").ej2_instances[0];
+        $.ajax({
+            type: "POST",
+            url: "/Home/AjaxMethod",
+            // This is important for passing arrays
+            traditional: true,
+            data: { data: TreeObj.checkedNodes },       
+            //dataType: "json",
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    function nodeChecked() {
+        $("#checkTree").val(this.checkedNodes);
+    }
+</script>
+
