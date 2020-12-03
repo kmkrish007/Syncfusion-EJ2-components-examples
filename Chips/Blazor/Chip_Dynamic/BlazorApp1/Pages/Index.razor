@@ -1,0 +1,79 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Buttons;
+@inject IJSRuntime jsRuntime
+
+@{
+    var SomeList = new List<DataList>
+    {
+    new DataList {Name ="Chips 1"  },
+    new DataList {Name ="Chips 2"  }
+    };
+}
+
+    @foreach (var item in SomeList)
+    {
+        <div>@item.Name</div>
+        <SfChipList Selection="Selection.Multiple" @ref="chip">
+            <ChipCollection>
+                @foreach (var t in Categories)
+                {
+                    <ChipListChip Text="@String.Format($"{t.Name} {t.VendorTypeId}")" Enabled="true" CssClass="@String.Format($"{t.className}")"></ChipListChip>
+                }
+            </ChipCollection>
+        </SfChipList>
+
+    }
+
+<button @onclick="@Click">get Selected</button>
+
+@code
+{
+    SfChipList chip;
+    private List<VendorType> Categories = new List<VendorType>();
+
+    protected override void OnInitialized()
+    {
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 2,
+            Name = "Wood Products",
+            className = "e-active"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 3,
+            Name = "Iron Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 4,
+            Name = "Plastic Products",
+            className = "e-active"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 5,
+            Name = "Ceramic Products"
+        });
+    }
+
+    public void Click()
+    {
+        var sel = chip.SelectedChips;
+        var sele = chip.GetSelectedChips();
+    }
+
+    public class VendorType
+    {
+        public string Name { get; set; }
+        public int VendorTypeId { get; set; }
+        public string className { get; set; }
+    }
+
+    public class DataList
+    {
+        public string Name { get; set; }
+    }
+
+    }

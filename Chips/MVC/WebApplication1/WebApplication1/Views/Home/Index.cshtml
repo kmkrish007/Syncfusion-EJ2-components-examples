@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@Html.EJS().Calendar("calendar").Render()
+
+
+@Html.EJS().ChipList("chip-avatar").EnableDelete(true).Chips(chip =>
+       {
+           chip.Text("Lägg till och ta bort deltagare i kalenderbokningen i Outlook, klicka på skicka uppdatering och välj Skicka till alla deltagare").LeadingIconCss("ms-Icon ms-Icon--Info").Enabled(true).Add();
+       }).Render()
+
+<div id="chipContainer" style="overflow:auto;width:100%">
+    @Html.EJS().ChipList("chip-avatar1").EnableDelete(true).Chips(chip =>
+{
+chip.Text("Lägg till och ta bort deltagare i kalenderbokningen i Outlook, klicka på skicka uppdatering och välj Skicka till alla deltagare").LeadingIconCss("ms-Icon ms-Icon--Info").Enabled(true).Add();
+}).Render()
+</div>

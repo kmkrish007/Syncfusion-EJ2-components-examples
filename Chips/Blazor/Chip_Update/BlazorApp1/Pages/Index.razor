@@ -1,0 +1,83 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Buttons;
+@inject IJSRuntime jsRuntime
+@using Newtonsoft.Json;
+
+<div class="row">
+    <div class="col-12">
+        @if (Categories != null)
+        {
+            <SfChipList EnableDelete="true" EnablePersistence="true">
+                <ChipCollection>
+                    @foreach (var type in Categories)
+                    {
+                        <ChipListChip Text="@type.Name"></ChipListChip>
+                    }
+                </ChipCollection>
+            </SfChipList>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (Categories != null)
+        {
+            <ul>
+                @foreach (var type in Categories)
+                {
+                    <li>@type.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<button @onclick="@Click">Add Item</button>
+
+@code
+{
+
+    private List<VendorType> Categories = new List<VendorType>();
+
+    protected override void OnInitialized()
+    {
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 2,
+            Name = "Wood Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 3,
+            Name = "Iron Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 4,
+            Name = "Plastic Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 5,
+            Name = "Ceramic Products"
+        });
+    }
+
+    public void Click()
+    {
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 6,
+            Name = "Concrete Products"
+        });
+        this.StateHasChanged();
+    }
+
+    public class VendorType
+    {
+        public string Name { get; set; }
+        public int VendorTypeId { get; set; }
+    }
+}

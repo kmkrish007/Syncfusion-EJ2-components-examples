@@ -1,0 +1,57 @@
+﻿@page "/"
+@namespace BlazorApp1.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlazorApp1</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="_content/Syncfusion.Blazor/styles/bootstrap4.css" rel="stylesheet" />
+</head>
+<body>
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+    <script>
+        function accessDOMElement(args, data) {
+            // get listview component instance
+            var listObj = document.getElementById("list").ej2_instances[0];
+            var elem = document.elementFromPoint(args.clientX, args.clientY);
+            if (elem.classList.contains("e-list-text")) {
+                // remove the active and focus class
+                elem.parentElement.parentNode.classList.remove("e-active", "e-focused");
+                // uncheck the item
+                listObj.uncheckItem(elem.parentElement.parentNode);
+            } else if (elem.classList.contains("e-text-content")) {
+                 // remove the active and focus class
+                elem.parentElement.classList.remove("e-active", "e-focused");
+                // uncheck the item
+                listObj.uncheckItem(elem.parentElement);
+            }
+            // navigate to the url
+            document.location.href = data.Url;
+        }
+    </script>
+</body>
+</html>

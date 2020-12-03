@@ -1,0 +1,35 @@
+﻿@page "/"
+@using Syncfusion.EJ2.Blazor.Buttons
+@using Syncfusion.EJ2.Blazor.Inputs
+
+<EjsChipList @ref="chip" Selection="Selection.Multiple" SelectedChips="@selectedChip">
+    <ChipCollection>
+        <ChipListChip Text="Chip1"></ChipListChip>
+        <ChipListChip Text="Chip2"></ChipListChip>
+        <ChipListChip Text="Chip3"></ChipListChip>
+        <ChipListChip Text="Chip4"></ChipListChip>
+    </ChipCollection>
+</EjsChipList>
+
+<EjsButton @onclick="clear">Clear selection</EjsButton>
+<EjsButton @onclick="changeChip">Select Chip</EjsButton>
+
+@code {
+    EjsChipList chip;
+    //select chips on initial time
+    public object selectedChip { get; set; } = new int[] { 1, 3 };
+    public object lastSelected { get; set; }
+
+    //Select last selected chips
+    public void changeChip()
+    {
+        selectedChip = lastSelected;
+    }
+    // clear the selected chips
+    public void clear()
+    {
+        // store last selected chips
+        lastSelected = chip.SelectedChips;
+        selectedChip = new int[] { };
+    }
+}

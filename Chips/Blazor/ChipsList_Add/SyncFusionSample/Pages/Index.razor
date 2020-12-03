@@ -1,0 +1,45 @@
+﻿@page "/"
+@using SyncFusionSample.Components
+
+<div class="row">
+    <div class="col-12">
+        <VendorCategories Categories="vendorTypes" OnAddCategory="CategoryAdded" OnDeleteCategory="CategoryDeleted"></VendorCategories>
+    </div>
+</div>
+
+@code {
+    public List<VendorType> vendorTypes = new List<VendorType>();
+
+    protected override void OnInitialized()
+    {
+        vendorTypes.Add(new VendorType
+        {
+            VendorTypeId = 2,
+            Name = "Wood Products"
+        });
+        vendorTypes.Add(new VendorType
+        {
+            VendorTypeId = 3,
+            Name = "Iron Products"
+        });
+        vendorTypes.Add(new VendorType
+        {
+            VendorTypeId = 4,
+            Name = "Plastic Products"
+        });
+        vendorTypes.Add(new VendorType
+        {
+            VendorTypeId = 5,
+            Name = "Ceramic Products"
+        });
+    }
+
+    public void CategoryAdded(VendorType vendorType)
+    {
+        vendorTypes.Add(vendorType);
+        //StateHasChanged();
+    }
+
+    public void CategoryDeleted(VendorType vendorType) => vendorTypes.Remove(vendorType);
+
+}

@@ -1,0 +1,69 @@
+﻿@page "/"
+@using Syncfusion.Blazor.Layouts
+@using Syncfusion.Blazor.Charts
+@using Syncfusion.Blazor.Buttons
+@{
+    var Dashboard = new List<Dashboards>
+            {
+             new Dashboards {Name ="dashboard1"  },
+            //new Dashboards {Name ="dashboard2"  }
+       };
+
+}
+    <div class="row">
+        @foreach (var dashboard in Dashboard)
+        {
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 m-4">
+                <div>@dashboard.Name</div>
+                <SfDashboardLayout Columns="4" AllowResizing="true">
+                    <ChildContent>
+                        @{
+                            var SimplePanels = new List<SimplePanelDefinition>
+                                {
+                            new SimplePanelDefinition { X = 0, Y = 0, Width = 3, Height = 2 , Header="Panel1",  content=@<SfButton Content="Button"></SfButton>, Color="Red" },
+                            new SimplePanelDefinition { X = 3, Y = 0, Width = 1, Height = 1 , Header="Panel2", content=@<SfButton Content="Button1"></SfButton>, Color="Yellow"},
+                            new SimplePanelDefinition { X = 3, Y = 1, Width = 1, Height = 2 , Header="Panel3", content=@<SfButton Content="Button2"></SfButton>, Color="Blue" }
+                };
+
+                        }
+
+                        @foreach (var panel in SimplePanels)
+                        {
+                            <div class="e-panel" data-row=@panel.X.ToString() data-col=@panel.Y.ToString() data-sizeX=@panel.Width.ToString() data-sizeY=@panel.Height.ToString() >
+                                <div class="e-panel-header" style="background-color:@panel.Color">
+                                    <div class="text-align">@panel.Header</div>
+                                </div>
+                                <div class="e-panel-content" style="background-color:@panel.Color">
+                                    @panel.content
+                                </div>
+                            </div>
+                        }
+
+
+                    </ChildContent>
+                </SfDashboardLayout>
+            </div>
+        }
+    </div>
+
+        @code {
+            public class SimplePanelDefinition
+            {
+                public int X { get; set; }
+                public int Y { get; set; }
+                public int Width { get; set; }
+                public int Height { get; set; }
+                public RenderFragment content { get; set; }
+                public string Header { set; get; }
+                public string Color { get; set; }
+            }
+            public class Dashboards
+            {
+                public string Name { get; set; }
+            }
+
+        }
+
+        <style>
+           
+        </style>

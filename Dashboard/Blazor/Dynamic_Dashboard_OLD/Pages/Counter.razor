@@ -1,0 +1,53 @@
+﻿@page "/counter"
+
+@using Syncfusion.EJ2.Blazor.Layouts
+@using Syncfusion.EJ2.Blazor.Charts
+@using Syncfusion.EJ2.Blazor.Buttons
+
+@{
+    var Dashboard = new List<Dashboards> { 
+        new Dashboards { Name ="dashboard1" } 
+    };
+    var SimplePanels = new List<SimplePanelDefinition>  {
+        new SimplePanelDefinition { X = 0, Y = 0, Width = 4, Height = 3 , Header="Panel1",  content=@<EjsButton Content="Button"></EjsButton> },
+        new SimplePanelDefinition { X = 4, Y = 0, Width = 1, Height = 1 , Header="Panel2", content=@<EjsButton Content="Button1"></EjsButton>},
+        new SimplePanelDefinition { X = 4, Y = 1, Width = 1, Height = 2 , Header="Panel3", content=@<EjsButton Content="Button2"></EjsButton> }
+    };
+
+}
+
+@foreach (var dashboard in Dashboard)
+{
+    <div>@dashboard.Name</div>
+    <EjsDashboardLayout @ref="dashboardObject" Columns="5" AllowResizing="true">
+        <DashboardLayoutPanels>
+            @foreach (var panel in SimplePanels)
+            { 
+                <DashboardLayoutPanel SizeX="@panel.Width" SizeY="@panel.Height" Col="@panel.X" Row="@panel.Y">
+                    <HeaderTemplate>@panel.Header</HeaderTemplate>
+                    <ContentTemplate>@panel.content</ContentTemplate>
+                </DashboardLayoutPanel>
+            }
+            </DashboardLayoutPanels>
+        
+    </EjsDashboardLayout>
+}
+
+
+@code {
+    EjsDashboardLayout dashboardObject;
+    public class SimplePanelDefinition
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public RenderFragment content { get; set; }
+        public string Header { set; get; }
+    }
+    public class Dashboards
+    {
+        public string Name { get; set; }
+    }
+
+}

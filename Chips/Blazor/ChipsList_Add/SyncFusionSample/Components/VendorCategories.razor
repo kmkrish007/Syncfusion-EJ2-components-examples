@@ -1,0 +1,116 @@
+﻿<div class="row">
+    <div class="col-3">
+        <SfAutoComplete TValue="string"
+                        TItem="VendorType"
+                        Placeholder="Add Category"
+                        DataSource="availableCategories"
+                        @bind-Value="addCategory">
+            <AutoCompleteFieldSettings Text="Name"></AutoCompleteFieldSettings>
+        </SfAutoComplete>
+    </div>
+    <div class="col-1">
+        <button type="button"
+                class="btn btn-sm btn-primary"
+                disabled="@(string.IsNullOrEmpty(addCategory))"
+                @onclick="AddCategory">
+            Add
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (Categories != null)
+        {
+            <SfChipList EnableDelete="true" EnablePersistence="true">
+                <ChipListEvents OnDelete="DeleteCategory"></ChipListEvents>
+                <ChipCollection>
+                    @foreach (var type in Categories)
+                    {
+                        <ChipListChip Text="@type.Name"></ChipListChip>
+                    }
+                </ChipCollection>
+            </SfChipList>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (Categories != null)
+        {
+            <ul>
+                @foreach(var type in Categories)
+                {
+                    <li>@type.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<VendorType> Categories { get; set; }
+
+    [Parameter]
+    public EventCallback<VendorType> OnAddCategory { get; set; }
+
+    [Parameter]
+    public EventCallback<VendorType> OnDeleteCategory { get; set; }
+
+    private List<VendorType> availableCategories = new List<VendorType>();
+    private string addCategory;
+
+    protected override void OnInitialized()
+    {
+        availableCategories.Add(new VendorType
+        {
+            VendorTypeId = 1,
+            Name = "Concrete Products"
+        });
+        availableCategories.Add(new VendorType
+        {
+            VendorTypeId = 2,
+            Name = "Wood Products"
+        });
+        availableCategories.Add(new VendorType
+        {
+            VendorTypeId = 3,
+            Name = "Iron Products"
+        });
+        availableCategories.Add(new VendorType
+        {
+            VendorTypeId = 4,
+            Name = "Plastic Products"
+        });
+        availableCategories.Add(new VendorType
+        {
+            VendorTypeId = 5,
+            Name = "Ceramic Products"
+        });
+    }
+
+    private async Task AddCategory()
+    {
+        // make sure the category is not already assigned
+        if (Categories.All(x => x.Name != addCategory))
+        {
+            var vendorType = availableCategories.SingleOrDefault(x => x.Name == addCategory);
+            if (vendorType != null)
+            {
+                await OnAddCategory.InvokeAsync(vendorType);
+                //StateHasChanged();
+            }
+        }
+        this.StateHasChanged();
+        //addCategory = null;
+    }
+
+    public async Task DeleteCategory(DeleteEventArgs args)
+    {
+        // notify the parent so the VendorType can be removed from the collection
+        var vendorType = Categories.Single(x => x.Name == args.Text);
+        await OnDeleteCategory.InvokeAsync(vendorType);
+    }
+}

@@ -1,0 +1,100 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Buttons
+
+
+<div class="row">
+    <div class="col-12">
+        @if (Categories != null)
+        {
+        <SfChip EnableDelete="true">
+            <ChipEvents OnDelete="this.DeleteBoothAssignment"></ChipEvents>
+            <ChipItems>
+                @foreach (var type in Categories)
+                {
+                    <ChipItem Text="@type.Name"></ChipItem>
+                }
+            </ChipItems>
+        </SfChip>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @if (Categories != null)
+        {
+            <ul>
+                @foreach (var type in Categories)
+                {
+                    <li>@type.Name</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<button @onclick="@Click">Add Item</button>
+
+@code
+{
+
+    private List<VendorType> Categories = new List<VendorType>();
+
+    protected override void OnInitialized()
+    {
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 2,
+            Name = "Wood Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 3,
+            Name = "Iron Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 4,
+            Name = "Plastic Products"
+        });
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 5,
+            Name = "Ceramic Products"
+        });
+    }
+
+    public void Click()
+    {
+        Categories.Add(new VendorType
+        {
+            VendorTypeId = 6,
+            Name = "Concrete Products"
+        });
+        this.StateHasChanged();
+    }
+
+    public class VendorType
+    {
+        public string Name { get; set; }
+        public int VendorTypeId { get; set; }
+    }
+
+    private async Task DeleteBoothAssignment(ChipEventArgs args)
+    {
+        try
+        {
+            var boothAssignment = Categories.Single(x => x.Name == args.Text);
+            //await Task.Delay(2000);
+            //this.EventRegistration.BoothAssignments = await this.EventRegistrationService.DeleteBooth(this.UserId, boothAssignment);
+        }
+        catch (Exception ex)
+        {
+            //Log.Start("RegistrationInfo");
+            //Log.SetUser(this.UserId);
+            //Log.Error(ex);
+            //Log.Stop();
+        }
+    }
+}

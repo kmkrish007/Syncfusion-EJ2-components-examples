@@ -1,0 +1,66 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Charts
+@using Syncfusion.Blazor.Layouts
+
+<SfDashboardLayout @ref="Dash" Columns="12" AllowResizing="true">
+    <DashboardLayoutEvents OnResizeStop="@resize"></DashboardLayoutEvents>
+    <DashboardLayoutPanels>
+            <DashboardLayoutPanel Id="Panel1" SizeX="4" SizeY="2">
+                <HeaderTemplate><div class='header'> Customers Count </div></HeaderTemplate>
+                <ContentTemplate>
+                    <div style="height:100%; width:100%;">
+                        <SfChart ID="linechart" @ref="linechartObj" Height="100%" Width="100%">
+                            <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime">
+                            </ChartPrimaryXAxis>
+                            <ChartSeriesCollection>
+                                <ChartSeries DataSource="@DataSource" XName="XValue" YName="YValue" Type="ChartSeriesType.Line">
+                                    <ChartMarker Visible="true">
+                                        <ChartDataLabel Visible="true" Position="LabelPosition.Top">
+                                        </ChartDataLabel>
+                                    </ChartMarker>
+                                </ChartSeries>
+                            </ChartSeriesCollection>
+                        </SfChart>
+                    </div>
+                </ContentTemplate>
+            </DashboardLayoutPanel>
+        </DashboardLayoutPanels>
+</SfDashboardLayout>
+
+@code{
+    SfChart linechartObj;
+    SfDashboardLayout Dash;
+    public class ChartData
+    {
+        public DateTime XValue;
+        public double YValue;
+        public string X;
+        public double Y;
+        public string Country;
+        public string X1;
+        public double Y1;
+        public double Y2;
+        public double Y3;
+        public double Y4;
+    }
+    public List<ChartData> DataSource = new List<ChartData>
+    {
+        new ChartData { XValue = new DateTime(2005, 01, 01), YValue = 21, X = "USA", Y =300.2, Country = "USA: 72", X1= "2012"},
+        new ChartData { XValue = new DateTime(2006, 01, 01), YValue = 24, X = "Russia", Y = 103.1, Country = "RUS: 103.1", X1= "2013"},
+        new ChartData { XValue = new DateTime(2007, 01, 01), YValue = 36, X = "Brazil", Y = 139.1, Country = "BRZ: 139.1", X1= "2014"},
+        new ChartData { XValue = new DateTime(2008, 01, 01), YValue = 38, X = "India", Y = 262.1, Country = "IND: 262.1", X1= "2015"},
+    };
+
+    public void resize()
+    {
+        this.linechartObj.Refresh();
+    }
+}
+
+<style>
+    #linechart{
+        height: inherit;
+        width: inherit;
+    }
+</style>
