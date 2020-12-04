@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<label>FTP Service: </label>
+
+<ejs-filemanager id="ftp_filemanager">
+    <e-filemanager-ajaxsettings url="http://localhost:62869/api/FTPProvider/FTPFileOperations"
+                                downloadUrl="http://localhost:62869/api/FTPProvider/FTPDownload"
+                                uploadUrl="http://localhost:62869/api/FTPProvider/FTPUpload"
+                                getImageUrl="http://localhost:62869/api/FTPProvider/FTPGetImage">
+    </e-filemanager-ajaxsettings>
+</ejs-filemanager>
+
+<label>Amazon Service: </label>
+
+<ejs-filemanager id="amz_filemanager">
+    <e-filemanager-ajaxsettings url="http://localhost:62869/api/AmazonS3Provider/AmazonS3FileOperations"
+                                downloadUrl="http://localhost:62869/api/AmazonS3Provider/AmazonS3Download"
+                                uploadUrl="http://localhost:62869/api/AmazonS3Provider/AmazonS3Upload"
+                                getImageUrl="http://localhost:62869/api/AmazonS3Provider/AmazonS3GetImage">
+    </e-filemanager-ajaxsettings>
+</ejs-filemanager>

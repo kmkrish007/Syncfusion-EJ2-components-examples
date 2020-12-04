@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var template = "<div ><span>${Jobs}-</span>&nbsp;&nbsp;<span>${Towns}</span></div>";
+
+}
+
+@model WebApplication8.Controllers.SampleModel
+
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="SaveData">
+    <div>
+        <ejs-dropdowntree id="Jobs" width="300px" ejs-for="@Model.SelectedCatogory" allowMultiSelection="true" placeholder="Select a Towns" allowFiltering="true" itemTemplate="@template" showDropDownIcon="true" change="onchange" created="created">
+            <e-dropdowntree-treesettings loadOnDemand="true"> </e-dropdowntree-treesettings>
+            <e-dropdowntree-fields value="Id" text="Towns" parentValue="ParentId" hasChildren="HasChild">
+                <e-data-manager url="Home/Get" adaptor="WebApiAdaptor" crossDomain="true"></e-data-manager>
+            </e-dropdowntree-fields>
+            <e-dropdowntree-treesettings></e-dropdowntree-treesettings>
+        </ejs-dropdowntree>
+        <ejs-dropdowntree id="treedata">
+
+            <e-dropdowntree-fields dataSource="@ViewBag.myDropDown.properties" value="id" parentValue="pid" hasChildren="hasChild" text="name"></e-dropdowntree-fields>
+
+        </ejs-dropdowntree>
+    </div>
+    <input type="submit" value="save" />
+</form>
+
+<script>
+    function created() {
+        var sel = $('[name ="SelectedCatogory"]')[0];
+        sel.setAttribute("multiple", "multiple");
+    }
+</script>
+

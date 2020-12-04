@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    string[] toolbarItems = new string[] { "Open", "SortBy", "Refresh", "View", "Details", "Download", "Kopiraj URL" };
+    string[] fileItems = new string[] { "Open", "Download", "Details" };
+    string[] folderItems = new string[] { "Open", "Download", "Details" };
+}
+<div class=" control-section">
+    <div class="sample-container">
+        <!-- Declare filemanager element -->
+
+        <ejs-filemanager id="filemanager" width="100%" allowDragAndDrop="false" locale="hr" view="Details" allowMultiSelection="true" path="/Downloads/">
+            <e-filemanager-ajaxsettings url="/Home/FileOperations" downloadUrl="/Home/Download"></e-filemanager-ajaxsettings>
+            <e-filemanager-contextmenusettings file="fileItems" folder="folderItems" visible="true"></e-filemanager-contextmenusettings>
+            <e-filemanager-navigationpanesettings visible="true"></e-filemanager-navigationpanesettings>
+            <e-filemanager-toolbarsettings items="toolbarItems" visible="false"></e-filemanager-toolbarsettings>
+        </ejs-filemanager>
+        <!-- end of filemanager element -->
+    </div>
+</div>
+
+<script>
+
+    // Declare locale value
+    ej.base.L10n.load({
+        'hr': {
+            'filemanager': {
+                "NewFolder": "Nova mapa",
+                "Upload": "Upload",
+                "Delete": "Izbriši",
+                "Rename": "Preimenuj",
+                "Download": "Preumzi",
+                "Cut": "Isjeći",
+                "Copy": "Kopiraj",
+                "Paste": "Zalijepi",
+                "SortBy": "Poredaj po",
+                "Refresh": "Osvježi",
+                "Item-Selection": "Stavka je odabrana",
+                "Items-Selection": "Stavke su odabrane",
+                "View": "Pogled",
+                "Details": "Detalji",
+                "SelectAll": "Odaberi sve",
+                "Open": "Otvori",
+                "Tooltip-NewFolder": "Nova mapa",
+                "Tooltip-Upload": "Upload",
+                "Tooltip-Delete": "Izbriši",
+                "Tooltip-Rename": "Preimenuj",
+                "Tooltip-Download": "Peruzmi",
+                "Tooltip-Cut": "Isjeći",
+                "Tooltip-Copy": "Kopiraj",
+                "Tooltip-Paste": "Zalijepi",
+                "Tooltip-SortBy": "Poredaj po",
+                "Tooltip-Refresh": "Osvježi",
+                "Tooltip-Selection": "Očisti odabir",
+                "Tooltip-View": "Pogled",
+                "Tooltip-Details": "Detalji",
+                "Tooltip-SelectAll": "odaberi sve",
+                "Name": "Ime",
+                "Size": "Veličina",
+                "DateModified": "Datum posljednje izmijene",
+                "DateCreated": "Datum izrade",
+                "Path": "Putanje",
+                "Modified": "Imijenjen",
+                "Created": "Izrađen",
+                "Location": "Mjesto",
+                "Type": "Tip",
+                "Permission": "Dozvola",
+                "Ascending": "Uzlazni",
+                "Descending": "Silazni",
+                "View-LargeIcons": "Velike ikone",
+                "View-Details": "Detalji",
+                "Search": "Traži",
+                "Button-Ok": "OK",
+                "Button-Cancel": "Otkaži",
+                "Button-Yes": "Da",
+                "Button-No": "Ne",
+                "Button-Create": "Stvori",
+                "Button-Save": "Sačuvaj",
+                "Header-NewFolder": "Mapa",
+                "Content-NewFolder": "Unesite naziv mape",
+                "Header-Rename": "Preimenuj",
+                "Content-Rename": "Unesite novo ime",
+                "Header-Rename-Confirmation": "Potvrda preimenovanja",
+                "Content-Rename-Confirmation": "Ako promijenite proširenje naziva datoteke, datoteka može postati neuporabna. Jeste li sigurni da želite promijeniti?",
+                "Header-Delete": "Izbriši datoteku",
+                "Content-Delete": "Jeste li sigurni da želite izbrisati ovu datoteku?",
+                "Header-Multiple-Delete": "Izbrišite više datoteka",
+                "Content-Multiple-Delete": "Jeste li sigurni da želite izbrisati ovih {0} datoteka?",
+                "Header-Duplicate": "Datoteka / mapa več postoji",
+                "Content-Duplicate": "{0} već postoji. Jeste li sigurni da ga želite zamijeniti?",
+                "Header-Upload": "Upload datoteka",
+                "Error": "Greška",
+                "Validation-Empty": "Naziv datoteke ili mape ne može biti prazan.",
+                "Validation-Invalid": "Naziv datoteke ili mape {0} sadrži nevažeće znakove. Koristite drugo ime. Važeća imena datoteka ili mapa ne mogu se završavati točkom ili razmakom te ne mogu sadržavati nijedan od sljedećih znakova: \\ /: *? \" < > | ",
+                "Validation-NewFolder-Exists": "Datoteka ili mapa sa nazivom {0} već postoje.",
+                "Validation-Rename-Exists": "Ne mogu preimenovati {0} u {1}, mapa ili datoteka s ovim imenom već postoji",
+                "Folder-Empty": "Ova mapa je prazna",
+                "File-Upload": "Povucite datoteke ovdje za prijenos - NOT ENABLED",
+                "Search-Empty": "Nema rezultata",
+                "Search-Key": "Pokušajte s različitim ključnim riječima",
+                "Sub-Folder-Error": "Odredišna mapa je podmapa izvorne mape",
+                "Access-Denied": "Pristup odbijen",
+                "Access-Details": "Nemate dozvolu za pristup ovoj mapi",
+                "Header-Retry": "Datoteka već postoji",
+                "Content-Retry": "Datoteka s ovim imenom već postoji u toj mapi. Što biste željeli učiniti?",
+                "Button-Keep-Both": "Zadrzi oboje",
+                "Button-Replace": "Zamijeni",
+                "Button-Skip": "Preskoči",
+                "ApplyAll-Label": "Učinite to za sve trenutne stavke"
+            }
+        }
+    });
+</script>
