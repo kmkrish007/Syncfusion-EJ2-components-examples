@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<input class="e-input" id="input" type="text" placeholder="Enter Search value"  onkeyup="Keyup(this)" />
+
+<ejs-filemanager id="filemanager" height="300px" allowMultiSelection="false"  view="Details" >
+    <e-filemanager-ajaxsettings url="/Home/FileOperations"
+                                downloadUrl="/Home/Download"
+                                getImageUrl="/Home/GetImage"
+                                uploadUrl="/Home/Upload">
+    </e-filemanager-ajaxsettings>                   
+</ejs-filemanager>
+    <script>
+        function Keyup(args) {
+            // Get the FileManager Instances.
+                var filemanagerInstance = document.getElementById('filemanager').ej2_instances[0];
+            var input = document.getElementById("input").value;
+            // Maintain the search value
+            var objectValue = { searchString: input }
+            // Send the search value to the controller side.
+                filemanagerInstance.filterFiles(objectValue);
+            }
+    </script>
+
+
+
+
+<style>
+ .e-search-wrap{ 
+       display: none; 
+  } 
+</style>

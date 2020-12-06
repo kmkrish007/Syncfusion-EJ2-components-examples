@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    string[] files = new string[] { "Edit", "Open", "|", "Delete", "Download", "Rename", "|", "Details" };
+    string[] folder = new string[] { "Edit", "Open", "|", "Delete", "Download", "Rename", "|", "Details" };
+    string[] layout = new string[] { "Edit", "SortBy", "View", "Refresh", "|", "NewFolder", "Upload", "|", "Details", "|", "SelectAll" };
+}
+
+@Html.EJS().FileManager("filemanager").AjaxSettings(new Syncfusion.EJ2.FileManager.FileManagerAjaxSettings
+      {
+          Url = "/Home/FileOperations",
+          GetImageUrl = "/Home/GetImage",
+          UploadUrl = "/Home/Upload",
+          DownloadUrl = "/Home/Download"
+      }).Path("/Documents").ContextMenuSettings(new Syncfusion.EJ2.FileManager.FileManagerContextMenuSettings()
+        {
+            File = files,
+            Folder = folder,
+            Layout = layout
+        }).MenuOpen("menuOpen").Render()
+
+    <script>
+        // Icon added to custom menu item
+        function menuOpen(args) {
+            for (var i = 0; i < args.items.length; i++) {
+                if (args.items[i].id === this.element.id + '_cm_edit') {
+                    args.items[i].iconCss = 'e-icons e-fe-edit';
+                }
+            }
+        }
+        </script>
+<style>
+
+    .e-fe-popup .e-fe-edit::before {
+        content: '\e81e';
+    }
+
+    .e-filemanager .e-treeview .e-list-item.e-level-1 > .e-text-content {
+        display: none;
+    }
+
+    .e-filemanager .e-treeview .e-list-item.e-level-1 > .e-ul {
+        padding: 0;
+    }
+
+    .e-filemanager .e-address .e-address-list-item:nth-child(1) {
+        display: none;
+    }
+
+    .e-filemanager .e-address .e-address-list-item:nth-child(2) .e-icons {
+        display: none;
+    }
+
+    .e-dropdown-popup.e-submenu li:nth-child(1) {
+        display: none;
+    }
+</style>
