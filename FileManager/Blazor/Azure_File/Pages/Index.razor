@@ -1,0 +1,17 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+
+<SfFileManager CssClass="custom">
+    <FileManagerAjaxSettings Url="http://localhost:62869/api/AzureProvider/AzureFileOperations"
+                             UploadUrl="http://localhost:62869/api/AzureProvider/AzureUpload"
+                             DownloadUrl="http://localhost:62869/api/AzureProvider/AzureDownload"
+                             GetImageUrl="http://localhost:62869/api/AzureProvider/AzureGetImage">
+    </FileManagerAjaxSettings>
+</SfFileManager>
+
+<style>
+    .custom .e-dialog .e-footer-content > .e-btn:first-child {
+        display: none;
+    }
+</style>

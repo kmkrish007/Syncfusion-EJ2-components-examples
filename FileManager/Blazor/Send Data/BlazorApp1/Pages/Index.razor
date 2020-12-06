@@ -1,0 +1,42 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+@using Newtonsoft.Json
+
+
+@*<SfFileManager @ref="Filemanager">
+    <FileManagerEvents OnSend="beforeSend"></FileManagerEvents>
+    <FileManagerAjaxSettings Url="/api/Default/FileOperations"
+                             GetImageUrl="/api/Default/GetImage"
+                             UploadUrl="/api/Default/Upload"
+                             DownloadUrl="/api/Default/Download">
+    </FileManagerAjaxSettings>
+</SfFileManager>*@
+
+<SfFileManager @ref="Filemanager">
+    <FileManagerEvents OnSend="beforeSend"></FileManagerEvents>
+    <FileManagerAjaxSettings Url="/api/SampleData/FileOperations"
+                             GetImageUrl="/api/SampleData/GetImage"
+                             UploadUrl="/api/SampleData/Upload"
+                             DownloadUrl="/api/SampleData/Download">
+    </FileManagerAjaxSettings>
+</SfFileManager>
+@code  {
+    SfFileManager Filemanager;
+    public void beforeSend(BeforeSendEventArgs args)
+    {
+        //var aa = args;
+        if (args.Action == "read")
+        {
+            string AjaxSettingsString = JsonConvert.SerializeObject(args.AjaxSettings);
+            Dictionary<string, dynamic> AjaxSettings = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(AjaxSettingsString);
+            string dataString = AjaxSettings["data"];
+            Dictionary<string, dynamic> data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(dataString);
+            // data.Add("ZipPath", zipPath);
+            string modifiedDataString = JsonConvert.SerializeObject(data);
+            AjaxSettings["data"] = modifiedDataString;
+            string returnString = JsonConvert.SerializeObject(AjaxSettings);
+            args.AjaxSettings = JsonConvert.DeserializeObject<object>(returnString);
+        }
+    }
+}

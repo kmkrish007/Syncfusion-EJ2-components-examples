@@ -1,0 +1,25 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+
+<SfFileManager>
+    <FileManagerEvents OnSend="OnSend"></FileManagerEvents>
+    <FileManagerAjaxSettings Url="/api/SampleData/FileOperations"
+                             GetImageUrl="/api/SampleData/GetImage"
+                             UploadUrl="/api/SampleData/Upload"
+                             DownloadUrl="/api/SampleData/Download">
+    </FileManagerAjaxSettings>
+</SfFileManager>
+
+@code{ 
+    public void OnSend(BeforeSendEventArgs args)
+    {
+        if(args.Action == "delete")
+        {
+            // delete action
+        } else if (args.Action == "Upload")
+        {
+            // upload action
+        }
+    }
+}

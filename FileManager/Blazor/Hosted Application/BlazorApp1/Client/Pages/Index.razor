@@ -1,0 +1,13 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+@using Newtonsoft.Json
+
+
+<SfFileManager ID="file">
+    <FileManagerAjaxSettings Url="/api/SampleData/FileOperations"
+                             GetImageUrl="/api/SampleData/GetImage"
+                             UploadUrl="/api/SampleData/Upload"
+                             DownloadUrl="/api/SampleData/Download">
+    </FileManagerAjaxSettings>
+</SfFileManager>

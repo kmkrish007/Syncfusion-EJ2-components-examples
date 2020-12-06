@@ -1,0 +1,22 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager;
+
+
+<SfFileManager ID="filemanager" @ref="file">
+    <FileManagerAjaxSettings Url="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+                             UploadUrl="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/Upload"
+                             DownloadUrl="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/Download"
+                             GetImageUrl="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/GetImage">
+    </FileManagerAjaxSettings>
+</SfFileManager>
+@code{
+    SfFileManager file;
+
+   
+}
+<style>
+    #filemanager_breadcrumbbar .e-addressbar-ul {
+        display: none;
+    }
+</style>

@@ -1,0 +1,20 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+
+    <div class="d-flex justify-content-center" style="
+        background-color: #d0d9e2 !important;
+        top: 4.2rem !important;
+        height: calc(100vh - 4.2rem) !important;
+        text-align: center !important;
+        margin: auto;
+        margin-top: 4.2rem;
+        overflow: hidden;">
+        <SfFileManager>
+            <FileManagerAjaxSettings Url="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+                                     UploadUrl="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/Upload"
+                                     DownloadUrl="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/Download"
+                                     GetImageUrl="https://ej2-aspcore-service.azurewebsites.net/api/FileManager/GetImage">
+            </FileManagerAjaxSettings>
+        </SfFileManager>
+        </div>

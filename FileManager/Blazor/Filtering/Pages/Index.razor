@@ -1,0 +1,18 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+
+<SfFileManager View="ViewType.Details">
+    <FileManagerAjaxSettings Url="/api/Default/FileOperations"
+                             GetImageUrl="/api/Default/GetImage"
+                             UploadUrl="/api/Default/Upload"
+                             DownloadUrl="/api/Default/Download">
+    </FileManagerAjaxSettings>
+    <FileManagerDetailsViewSettings>
+        <FileManagerColumns>
+            <FileManagerColumn HeaderText="File Name" Field="name"></FileManagerColumn>
+            <FileManagerColumn HeaderText="Date" Field="dateModified" Format="@("MMMM dd, yyyy")" Type="date"></FileManagerColumn>
+            <FileManagerColumn HeaderText="Size" Field="size"></FileManagerColumn>
+        </FileManagerColumns>
+    </FileManagerDetailsViewSettings>
+</SfFileManager>

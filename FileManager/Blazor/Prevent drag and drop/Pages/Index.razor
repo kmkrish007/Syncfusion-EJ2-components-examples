@@ -1,0 +1,31 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+@using Newtonsoft.Json
+
+
+<SfFileManager ID="file">
+    <FileManagerEvents Created="@OnCreated"></FileManagerEvents>
+    <FileManagerAjaxSettings Url="/api/SampleData/FileOperations"
+                             GetImageUrl="/api/SampleData/GetImage"
+                             UploadUrl="/api/SampleData/Upload"
+                             DownloadUrl="/api/SampleData/Download">
+    </FileManagerAjaxSettings>
+</SfFileManager>
+
+@code{
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    public async void OnCreated()
+    {
+        await JSRuntime.InvokeAsync<string>("FileManager");
+    }
+
+}
+
+<style>
+    #file .e-empty-inner-content {
+        display: none;
+    }
+</style>
