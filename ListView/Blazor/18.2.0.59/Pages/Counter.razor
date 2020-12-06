@@ -1,0 +1,170 @@
+﻿@page "/counter"
+
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.DropDowns
+@using Newtonsoft.Json
+
+<SfListView ID="listViewResults"
+            DataSource="@Results"
+            TValue="DocTesViewModel"
+            CssClass="e-list-template listview-template"
+            Height="100%">
+    <ListViewEvents TValue="DocTesViewModel" Selected="OnListItemSelected"></ListViewEvents>
+    <ListViewFieldSettings Id="Id" Text="Id"></ListViewFieldSettings>
+    <ListViewTemplates TValue="DocTesViewModel">
+        <Template>
+
+            @{
+                var doc = context as DocTesViewModel;
+                <div class="e-list-wrapper e-list-multi-line">
+                    <span class="e-list-item-header">@doc.Id</span>
+                    <span class="e-list-content">@doc.Id</span>
+                </div>
+            }
+
+        </Template>
+    </ListViewTemplates>
+</SfListView>
+
+@code
+{
+
+    public List<DocTesViewModel> Results { get; set; }
+
+    public List<DocTes> Documents { get; set; } = new List<DocTes>();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Documents.Add(new DocTes
+        {
+            Az = 1,
+            Anno = 2020,
+            Tipo = "z",
+            Serie = "C",
+            Nr = 1
+
+        });
+
+        Documents.Add(new DocTes
+        {
+            Az = 1,
+            Anno = 2020,
+            Tipo = "z",
+            Serie = "C",
+            Nr = 2
+        });
+
+        Results = await CreateDocTesViewModels(Documents.ToArray());
+
+        await base.OnInitializedAsync();
+    }
+
+    private Task<List<DocTesViewModel>> CreateDocTesViewModels(DocTes[] documents)
+    {
+        return Task.Run(async () =>
+        {
+            var viewModels = new List<DocTesViewModel>();
+
+            foreach (var doc in documents)
+            {
+
+                viewModels.Add(new DocTesViewModel(doc));
+            }
+
+            return viewModels.ToList();
+        });
+    }
+
+    private void OnListItemSelected(Syncfusion.Blazor.Lists.SelectEventArgs<DocTesViewModel> args)
+    {
+        var item = args.Data;
+    }
+
+    public class DocTes
+    {
+        public short Az { get; set; }
+        public string Tipo { get; set; }
+        public short Anno { get; set; }
+        public string Serie { get; set; }
+        public int Nr { get; set; }
+    }
+
+    public class DocTesViewModel
+    {
+        public string id = "";
+        public int anaCod = 0;
+        public string anaTipo = "";
+        public string ragSoc = "";
+
+
+        public DocTesViewModel()
+        {
+        }
+
+        public DocTesViewModel(DocTes docTes, string ragSoc)
+        {
+            this.DocTes = docTes;
+            this.ragSoc = ragSoc;
+            this.id = string.Format("{0}-{1}-{2}", docTes.Anno, docTes.Nr, docTes.Serie);
+        }
+
+        public DocTesViewModel(DocTes docTes)
+        {
+            this.DocTes = docTes;
+            this.id = string.Format("{0}-{1}-{2}", docTes.Anno, docTes.Nr, docTes.Serie);
+        }
+
+        public DocTes DocTes { get; private set; }
+
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+        }
+
+        public int AnaCod
+        {
+            get
+            {
+                return anaCod;
+            }
+            set
+            {
+                anaCod = value;
+            }
+        }
+
+        public string AnaTipo
+        {
+            get
+            {
+                return anaTipo;
+            }
+            set
+            {
+                if (anaTipo != value)
+                {
+                    anaTipo = value;
+                }
+            }
+        }
+
+        public string RagSoc
+        {
+            get
+            {
+                return ragSoc;
+            }
+            set
+            {
+                ragSoc = value;
+            }
+        }
+
+    }
+}

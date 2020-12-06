@@ -1,0 +1,67 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Lists
+@inject IJSRuntime JsRuntime
+
+<div style="padding:20px">
+    <SfListView ID="listview" DataSource="@Data"  ShowCheckBox="true" @ref="@list" Height="200px">
+        <ListViewFieldSettings Id="Id" Text="Text" IsChecked="isChecked"></ListViewFieldSettings>
+    </SfListView>
+</div>
+@code  {
+    SfListView<DataModel> list;
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+
+    List<DataModel> Data = new List<DataModel>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Data.Add(new DataModel { Text = "Hennessey Venom", Id = "list-01" });
+        Data.Add(new DataModel { Text = "Bugatti Chiron", Id = "list-02" });
+        Data.Add(new DataModel { Text = "Bugatti Veyron Super Sport", Id = "list-03" });
+        Data.Add(new DataModel { Text = "SSC Ultimate Aero", Id = "list-04" });
+        Data.Add(new DataModel { Text = "Koenigsegg CCR", Id = "list-05" });
+        Data.Add(new DataModel { Text = "McLaren F1", Id = "list-06" });
+        Data.Add(new DataModel { Text = "Aston Martin One- 77", Id = "list-07" });
+        Data.Add(new DataModel { Text = "Jaguar XJ220", Id = "list-08" });
+        Data.Add(new DataModel { Text = "McLaren P1", Id = "list-09" });
+        Data.Add(new DataModel { Text = "Ferrari LaFerrari", Id = "list-101" });
+        Data.Add(new DataModel { Text = "Hennessey Venom", Id = "list-011" });
+        Data.Add(new DataModel { Text = "Bugatti Chiron", Id = "list-021" });
+        Data.Add(new DataModel { Text = "Bugatti Veyron Super Sport", Id = "list-031" });
+        Data.Add(new DataModel { Text = "SSC Ultimate Aero", Id = "list-041" });
+        Data.Add(new DataModel { Text = "Koenigsegg CCR", Id = "list-051" });
+        Data.Add(new DataModel { Text = "McLaren F1", Id = "list-061" });
+        Data.Add(new DataModel { Text = "Aston Martin One- 77", Id = "list-071" });
+        Data.Add(new DataModel { Text = "Jaguar XJ220", Id = "list-081" });
+        Data.Add(new DataModel { Text = "McLaren P1", Id = "list-091" });
+        Data.Add(new DataModel { Text = "Ferrari LaFerrari", Id = "list-1011" });
+        Data.Add(new DataModel { Text = "Bugatti Chiron", Id = "list-0211" });
+        Data.Add(new DataModel { Text = "Bugatti Veyron Super Sport", Id = "list-0311" });
+        Data.Add(new DataModel { Text = "SSC Ultimate Aero", Id = "list-0411" });
+        Data.Add(new DataModel { Text = "Koenigsegg CCR", Id = "list-0511" });
+        Data.Add(new DataModel { Text = "McLaren F1", Id = "list-0611" });
+        Data.Add(new DataModel { Text = "Aston Martin One- 77", Id = "list-0711" });
+        Data.Add(new DataModel { Text = "Jaguar XJ220", Id = "list-0811" });
+        Data.Add(new DataModel { Text = "McLaren P1", Id = "list-0911" });
+        Data.Add(new DataModel { Text = "Ferrari LaFerrari", Id = "list-10111" });
+    }
+
+    class DataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var item = Data[Data.Count - 1];
+            // call the JS function to move the scroller position.
+            JSRuntime.InvokeAsync<string>("ListView", item);
+        }
+    }
+}

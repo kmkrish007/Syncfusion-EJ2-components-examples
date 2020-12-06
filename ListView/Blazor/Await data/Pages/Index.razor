@@ -1,0 +1,52 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Lists
+
+<SfListView DataSource="@Data" @ref="ListViewInstance">
+    <ListViewFieldSettings Id="Id" Text="Text"></ListViewFieldSettings>
+    <ListViewTemplates TValue="DataModel">
+        <Template>
+            @{ 
+                var CurrentData = (DataModel)context;
+                <div @onclick="(e => OnSelect(CurrentData))">
+                    <span>@CurrentData.Text</span>
+                </div>
+            }
+        </Template>
+    </ListViewTemplates>
+</SfListView>
+
+
+@code {
+    SfListView<DataModel> ListViewInstance;
+    public string HeaderTitle = "ListView";
+
+    List<DataModel> Data = new List<DataModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Data.Add(new DataModel { Text = "Hennessey Venom", Id = "list-01" });
+        Data.Add(new DataModel { Text = "Bugatti Chiron", Id = "list-02" });
+        Data.Add(new DataModel { Text = "Bugatti Veyron Super Sport", Id = "list-03" });
+        Data.Add(new DataModel { Text = "SSC Ultimate Aero", Id = "list-04" });
+        Data.Add(new DataModel { Text = "Koenigsegg CCR", Id = "list-05" });
+        Data.Add(new DataModel { Text = "McLaren F1", Id = "list-06" });
+        Data.Add(new DataModel { Text = "Aston Martin One- 77", Id = "list-07" });
+        Data.Add(new DataModel { Text = "Jaguar XJ220", Id = "list-08" });
+        Data.Add(new DataModel { Text = "McLaren P1", Id = "list-09" });
+        Data.Add(new DataModel { Text = "Ferrari LaFerrari", Id = "list-10" });
+    }
+
+    public async void OnSelect(DataModel selectedNode)
+    {
+        var txt = selectedNode.Text;
+        await ListViewInstance.Render();
+    }
+
+    public class DataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+    }
+} 

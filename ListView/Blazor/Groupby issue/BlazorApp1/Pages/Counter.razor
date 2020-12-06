@@ -1,0 +1,84 @@
+﻿@page "/counter"
+
+@using Syncfusion.Blazor.Navigations
+<SfTreeView TValue="TeamDetails" AllowDragAndDrop="true">
+    <TreeViewFieldsSettings TValue="TeamDetails" Id="Id" Text="Name" Child="Children" DataSource="@Team" Expanded="Expanded"></TreeViewFieldsSettings>
+</SfTreeView>
+
+@code{
+    public class TeamDetails
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool Expanded { get; set; }
+        public bool Selected { get; set; }
+        public List<TeamDetails> Children;
+    }
+    List<TeamDetails> Team = new List<TeamDetails>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        List<TeamDetails> EmployeeDetails = new List<TeamDetails>();
+        Team.Add(new TeamDetails
+        {
+            Id = "01",
+            Name = "ASP.NET MVC Team",
+            Expanded = true,
+            Children = EmployeeDetails,
+        });
+        EmployeeDetails.Add(new TeamDetails
+        {
+            Id = "01-01",
+            Name = "Smith",
+        });
+        EmployeeDetails.Add(new TeamDetails
+        {
+            Id = "01-02",
+            Name = "Johnson",
+        });
+        EmployeeDetails.Add(new TeamDetails
+        {
+            Id = "01-03",
+            Name = "Anderson"
+        });
+
+        List<TeamDetails> EmployeeDetails1 = new List<TeamDetails>();
+
+        Team.Add(new TeamDetails
+        {
+            Id = "02",
+            Name = "Windows Team",
+            Children = EmployeeDetails1,
+        });
+        EmployeeDetails1.Add(new TeamDetails
+        {
+            Id = "02-01",
+            Name = "Clark"
+        });
+        EmployeeDetails1.Add(new TeamDetails
+        {
+            Id = "02-02",
+            Name = "Wright"
+        });
+
+        List<TeamDetails> EmployeeDetails2 = new List<TeamDetails>();
+
+        Team.Add(new TeamDetails
+        {
+            Id = "03",
+            Name = "Web Team",
+            Children = EmployeeDetails2,
+        });
+        EmployeeDetails2.Add(new TeamDetails
+        {
+            Id = "03-01",
+            Name = "Joshua"
+        });
+        EmployeeDetails2.Add(new TeamDetails
+        {
+            Id = "03-02",
+            Name = "Matthew"
+        });
+    }
+}

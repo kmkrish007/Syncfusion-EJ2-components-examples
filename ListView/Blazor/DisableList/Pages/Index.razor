@@ -1,0 +1,34 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Buttons
+
+<SfButton ID="disable" Content="Disable Item" OnClick="DisableList"></SfButton>
+<SfListView DataSource="@Data" @ref="List" TValue="DataModel">
+    <ListViewFieldSettings Id="Id" Text="Text" Enabled="Enable"></ListViewFieldSettings>
+</SfListView>
+
+@code
+{
+    SfListView<DataModel> List;
+    private DataModel[] Data = {
+            new DataModel { Text = "ArtWork", Id = "list-01" },
+            new DataModel { Text = "Abstract", Id = "list-02" },
+            new DataModel { Text = "Modern Painting", Id = "list-03", Enable="false" },
+            new DataModel { Text = "Ceramics", Id = "list-04" },
+            new DataModel { Text = "Animation Art", Id = "list-05" },
+            new DataModel { Text = "Oil Painting", Id = "list-06" }
+    };
+    class DataModel
+    {
+        public string Text { get; set; }
+        public string Id { get; set; }
+        public string Enable { get; set; }
+    }
+
+    public async Task DisableList() {
+        DataModel data = new DataModel();
+        data.Id = "list-02";
+        await this.List.DisableItem(data);
+    }
+}

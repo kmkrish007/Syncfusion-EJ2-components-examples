@@ -1,0 +1,20 @@
+@page "/fetchdata"
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Navigations
+@using Newtonsoft.Json;
+@using BlazorApp2.Shared
+
+<SfTreeView TValue="WeatherForecast" ID="treeview">
+    <TreeViewFieldsSettings TValue="WeatherForecast" Id="Id" Text="Name" >
+        <TreeViewEvents TValue="WeatherForecast" NodeSelected="nodeselect"></TreeViewEvents>
+        <SfDataManager Url="/api/Default" Adaptor="Adaptors.WebApiAdaptor" CrossDomain="true" Offline="true"></SfDataManager>
+    </TreeViewFieldsSettings>
+</SfTreeView>
+
+@code {
+    public void nodeselect(NodeSelectEventArgs args)
+    {
+        var value = args.NodeData.Id;
+    }
+}

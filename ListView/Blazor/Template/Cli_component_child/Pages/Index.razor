@@ -1,0 +1,105 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Buttons
+
+<SfListView DataSource="@ListData"
+            HeaderTitle="Contacts"
+            ShowHeader="true"
+            CssClass="e-list-template"
+            Width="350">
+    <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+    <ListViewTemplates TValue="DataModel">
+        <Template>
+            @{
+                @if (context.Component == "chip")
+                {
+                    <SfChip>
+                        <ChipItems>
+                            <ChipItem Text=@context.Text></ChipItem>
+                        </ChipItems>
+                    </SfChip>
+                }
+                else
+                {
+                    <SfCard>
+                        <CardHeader Title=@context.Text />
+                        <CardContent Content=@context.Contact />
+                    </SfCard>
+                }
+            }
+        </Template>
+    </ListViewTemplates>
+</SfListView>
+
+@code{
+
+    List<DataModel> ListData = new List<DataModel>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ListData.Add(new DataModel
+        {
+            Text = "Jenifer",
+            Contact = "(206) 555-985774",
+            Id = "1",
+            Component = "card"
+        });
+        ListData.Add(new DataModel
+        {
+            Text = "Amenda",
+            Contact = "(206) 555-3412",
+            Id = "2",
+            Component = "card"
+        });
+        ListData.Add(new DataModel
+        {
+            Text = "Isabella",
+            Contact = "(206) 555-8122",
+            Id = "4",
+            Component = "card"
+        });
+        ListData.Add(new DataModel
+        {
+            Text = "William ",
+            Contact = "(206) 555-9482",
+            Id = "5",
+            Component = "chip"
+        });
+        ListData.Add(new DataModel
+        {
+            Text = "Jacob",
+            Contact = "(71) 555-4848",
+            Id = "6",
+            Component = "chip"
+        });
+        ListData.Add(new DataModel
+        {
+            Text = "Matthew",
+            Contact = "(71) 555-7773",
+            Id = "7",
+            Component = "chip"
+        });
+
+    }
+
+    public class DataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public string Contact { get; set; }
+        public string Component { get; set; }
+    }
+}
+
+<style>
+    .e-listview.e-control {
+        width: 400px;
+    }
+
+    .e-listview .e-list-item.e-focused, .e-listview .e-list-item.e-focused.e-active.e-checklist{
+        background-color: burlywood;
+    }
+</style>

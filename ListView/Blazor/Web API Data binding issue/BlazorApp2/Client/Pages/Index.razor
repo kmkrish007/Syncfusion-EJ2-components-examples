@@ -1,0 +1,25 @@
+﻿@page "/"
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Data
+@using Syncfusion.Blazor
+@inject HttpClient Http
+@using BlazorApp2.Shared
+
+<SfListView TValue="WeatherForecast" @ref="list"  ShowHeader="true" HeaderTitle="Categories">
+    <ListViewFieldSettings Id="Id" Text="Name"  Child="Child" TValue="WeatherForecast">
+    </ListViewFieldSettings>
+    <SfDataManager Url="api/Default" Adaptor="Adaptors.WebApiAdaptor"></SfDataManager>
+    <ListViewEvents TValue="WeatherForecast" ></ListViewEvents>
+</SfListView>
+
+
+
+
+
+@code {
+    SfListView<WeatherForecast> list;
+    Syncfusion.Blazor.Navigations.SfTreeView<WeatherForecast> tree;
+
+}

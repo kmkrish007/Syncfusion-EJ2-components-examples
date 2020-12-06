@@ -1,0 +1,53 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Lists
+
+<SfListView ID="List" Enable="true" EnableVirtualization="true" CssClass="listview" DataSource="@Data" TValue="DataModel">
+    <ListViewFieldSettings Id="ID" Text="Text"></ListViewFieldSettings>
+</SfListView>
+
+<div class="sample padding tracker">
+    <ul style="list-style: none">
+        @for (var i = Events.Count - 1; i >= 0; i--)
+        {
+            <li>@Events[i]</li>
+        }
+    </ul>
+</div>
+
+@code{
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+    List<string> Events = new List<string>();
+
+    DataModel[] Data =
+    {
+            new DataModel { Text = "Hennessey Venom", ID = "list-01" },
+            new DataModel { Text = "Bugatti Chiron", ID = "list-02" },
+            new DataModel { Text = "Bugatti Veyron Super Sport", ID = "list-03" },
+            new DataModel { Text = "SSC Ultimate Aero", ID = "list-04" },
+            new DataModel { Text = "Koenigsegg CCR", ID = "list-05" },
+            new DataModel { Text = "McLaren F1", ID = "list-06" },
+            new DataModel { Text = "Aston Martin One- 77", ID = "list-07" },
+            new DataModel { Text = "Jaguar XJ220", ID = "list-08" },
+            new DataModel { Text = "McLaren P1", ID = "list-09" },
+            new DataModel { Text = "Ferrari LaFerrari", ID = "list-10" },
+            new DataModel { Text = "Mercedes-Benz Aston Martin", ID = "list-11" },
+            new DataModel { Text = "Zenvo ST1", ID = "list-12" },
+            new DataModel { Text = "Lamborghini Veneno", ID = "list-13" }
+    };
+    class DataModel
+    {
+        public string Text { get; set; }
+        public string ID { get; set; }
+        public string Category { get; set; }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeAsync<string>("ListView");
+        }
+    }
+}

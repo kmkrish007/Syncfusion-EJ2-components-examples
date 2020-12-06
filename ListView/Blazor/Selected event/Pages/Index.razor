@@ -1,0 +1,80 @@
+﻿@page "/"
+
+
+@using Syncfusion.Blazor.Lists
+
+<SfListView CssClass="listviewgrp" DataSource="@ItemCatalogData" TValue="ItemCatalog"
+            HeaderTitle="Item Catalog">
+    <ListViewFieldSettings TValue="ItemCatalog" Id="Id" Text="Name" GroupBy="CategoryName"></ListViewFieldSettings>
+    <ListViewEvents TValue="ItemCatalog" Clicked="@onClickItem"></ListViewEvents>
+    <ListViewTemplates TValue="ItemCatalog">
+        <Template>
+            @{
+                ItemCatalog currentData = (ItemCatalog)context;
+                <div>
+                    <div><b>@currentData.Name: </b>@currentData.Price</div>
+                </div>
+            }
+        </Template>
+        <GroupTemplate>
+            <div>
+                <span>@context.Text</span>
+            </div>
+        </GroupTemplate>
+    </ListViewTemplates>
+</SfListView>
+
+@code
+{
+    List<ItemCatalog> ItemCatalogData = new List<ItemCatalog>()
+{
+        new ItemCatalog
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "DELL XPS",
+            Price = 45000,
+            Quantity = 1,
+            Product = true,
+            CategoryName = "Laptop"
+        },
+        new ItemCatalog
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "Microsoft Note",
+            Price = 50000,
+            Quantity = 1,
+            Product = true,
+            CategoryName = "Laptop"
+        },
+        new ItemCatalog
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "Mens",
+            Price = 200,
+            CategoryName = "Hair cut"
+        },
+        new ItemCatalog
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "Womens",
+            Price = 400,
+            CategoryName = "Hair cut"
+        }
+    };
+
+    private void onClickItem(Syncfusion.Blazor.Lists.ClickEventArgs<ItemCatalog> args)
+    {
+        var Text_value = args.ItemData.Name;
+    }
+
+    public class ItemCatalog
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public int Price { get; set; }
+        public int Quantity { get; set; }
+        public string CategoryName { get; set; }
+        public Boolean Product { get; set; }
+    }
+
+}

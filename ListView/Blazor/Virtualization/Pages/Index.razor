@@ -1,0 +1,104 @@
+﻿@page "/"
+
+
+@using Syncfusion.Blazor.Lists
+
+
+<div style=" height:800px; width:800px;">
+    <SfListView Id="List"
+                DataSource="@ListData"
+                HeaderTitle="Contacts"
+                ShowHeader="true"
+                CssClass="e-list-template listview-template"
+                Width="100%"
+                Height="100%"
+                EnableVirtualization="true"
+                SortOrder="Syncfusion.Blazor.Lists.SortOrder.Ascending">
+        <ListViewFieldSettings Id="Cod" Text="Des"></ListViewFieldSettings>
+        <ListViewTemplates TValue="Product">
+            <Template>
+                <div class="e-list-wrapper e-list-multi-line e-list-avatar">
+                    <span class="e-avatar e-avatar-circle">@((context as Product).Cod)</span>
+                    <span class="e-list-item-header">@((context as Product).Des)</span>
+                    <span class="e-list-content">@((context as Product).DispNetta)</span>
+                </div>
+            </Template>
+        </ListViewTemplates>
+    </SfListView>
+</div>
+
+
+@code{
+
+        List<Product> ListData = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var results = new List<Product>();
+
+        //results.AddRange((await OneWeb.GetProducts(null, false, false, new string[0])));
+        for (int i = 0; i < 1600; i++)
+        {
+            results.Add(new Product()
+            {
+                Cod = $"C:{i}",
+                Des = $"Element {i}",
+                DispNetta = i
+            });
+        }
+        ListData = results;
+        await base.OnInitializedAsync();
+    }
+
+    public class Product
+    {
+        public short Az { get; set; }
+        public string Cod { get; set; }
+        public string Des { get; set; }
+        public decimal DispNetta { get; set; }
+        public string ImageUrl { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} - {1}", Cod, Des);
+        }
+    }
+}
+
+<style>
+    .e-listview.e-control {
+        width: 400px;
+    }
+
+    .pic01 {
+        background-image: url("./images/1.png");
+    }
+
+    .pic02 {
+        background-image: url("./images/3.png");
+    }
+
+    .pic03 {
+        background-image: url("./images/5.png");
+    }
+
+    .pic04 {
+        background-image: url("./images/2.png");
+    }
+
+    #List .e-list-item:nth-child(1) .e-avatar {
+        background-color: #039be5;
+    }
+
+    #List .e-list-item:nth-child(2) .e-avatar {
+        background-color: #e91e63;
+    }
+
+    #List .e-list-item:nth-child(6) .e-avatar {
+        background-color: #009688;
+    }
+
+    #List .e-list-item:nth-child(8) .e-avatar {
+        background-color: #000088;
+    }
+</style>

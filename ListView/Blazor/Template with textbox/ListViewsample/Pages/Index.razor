@@ -1,0 +1,39 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Lists
+
+<EditForm Model="@Data">
+    <SfListView DataSource="@Data" TValue="DataModel">
+        <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+        <ListViewTemplates TValue="DataModel">
+            <Template Context="testContext">
+                <div class="clearfix e-list-wrapper e-list-multi-line e-list-avatar" style="height:100%;">
+                    <div class="d-flex flex-row align-items-center justify-content-between" style="height:100%;">
+                        <InputText class="form-control listing-input" @bind-Value="@testContext.Text" placeholder="Text..."></InputText>
+                    </div>
+                </div>
+            </Template>
+        </ListViewTemplates>
+    </SfListView>
+</EditForm>
+
+@code
+{
+    private EditContext editContext;
+
+    private DataModel[] Data =
+     {
+            new DataModel { Text = "ArtWork", Id = "list-01" },
+            new DataModel { Text = "Abstract", Id = "list-02" },
+            new DataModel { Text = "Modern Painting", Id = "list-03" },
+            new DataModel { Text = "Ceramics", Id = "list-04" },
+            new DataModel { Text = "Animation Art", Id = "list-05" },
+            new DataModel { Text = "Oil Painting", Id = "list-06" }
+    };
+    class DataModel
+    {
+        public string Text { get; set; }
+        public string Id { get; set; }
+    }
+}
+

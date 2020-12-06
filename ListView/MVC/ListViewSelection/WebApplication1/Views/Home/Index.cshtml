@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.Lists
+
+@*ListView with DataSource*@
+
+@Html.EJS().ListView("listview").Fields(new ListViewFieldSettings { Text = "text", Id="id", Enabled="enabled" }).DataSource((IEnumerable<object>)ViewBag.dataSource).Render()

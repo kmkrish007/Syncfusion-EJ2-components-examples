@@ -1,0 +1,70 @@
+﻿@page "/"
+
+
+@using Syncfusion.Blazor.Lists;
+@using Syncfusion.Blazor.Navigations;
+@using Syncfusion.Blazor.Inputs
+
+<h1>Hello, world!</h1>
+
+
+
+<div class="p-2 flex-fill d-flex flex-md-row flex-column overflow-auto">
+    <SfTextBox Placeholder="Filter" Input="@OnInput"></SfTextBox>
+    <SfListView DataSource="@ItemsFiltered" TValue="Item" EnableVirtualization="false" ShowCheckBox="true">
+        <ListViewEvents Selected="@OnSelected" TValue="Item" />
+        <ListViewFieldSettings Id="Id" Text="Text" IsChecked="Checked" />
+    </SfListView>
+</div>
+
+@code{
+
+    public class Item
+    {
+        public long Id { get; set; }
+        public string Text { get; set; }
+        public bool Checked { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ItemsFiltered = Items;
+    }
+
+    public List<Item> Items { get; set; } = new List<Item>()
+    {
+        new Item() { Id = 1, Text = "one"},
+        new Item() { Id = 2, Text = "two", Checked =true},
+        new Item() { Id = 3, Text = "three"},
+        new Item() { Id = 4, Text = "four"},
+        new Item() { Id = 5, Text = "five"},
+        new Item() { Id = 6, Text = "six"},
+        new Item() { Id = 7, Text = "seven"},
+        new Item() { Id = 8, Text = "eight"},
+    };
+    public List<Item> ItemsFiltered { get; set; }
+
+    public async Task OnSelected(SelectEventArgs<Item> eventArgs)
+    {
+        if (eventArgs == null)
+        {
+            Console.WriteLine("eventArgs null");
+            return;
+        }
+        if (eventArgs.Text == null)
+        {
+            Console.WriteLine("eventArgs.Text null");
+            return;
+        }
+        var vm = Items.FirstOrDefault(p => p.Text == eventArgs.Text);
+        Console.WriteLine("Triggered for " + vm.Text);
+    }
+    void OnInput(InputEventArgs eventArgs)
+    {
+        if (!string.IsNullOrEmpty(eventArgs.Value))
+            ItemsFiltered = Items.Where(e => e.Text.ToLower().Contains(eventArgs.Value)).ToList();
+        else
+            ItemsFiltered = Items.ToList();
+
+    }
+}
