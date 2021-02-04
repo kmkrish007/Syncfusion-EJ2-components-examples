@@ -1,0 +1,70 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Layouts
+@using Syncfusion.Blazor.Buttons
+
+<h3>Description</h3>
+
+Replacing the collection of panels is broken, as position and size of the new panels are not correct.
+
+<h3>Demo</h3>
+
+<SfButton OnClick="DoubleColumns">Replace panels</SfButton>
+
+<div style="width: 80%; height: 80%">
+    <SfDashboardLayout @ref="dashboard" Columns="4" CellAspectRatio="1">
+        <DashboardLayoutPanels>
+            @foreach (var panel in Panels)
+            {
+                <DashboardLayoutPanel Col="panel.X" Row="panel.Y" SizeX="panel.Width" SizeY="panel.Height">
+                    <HeaderTemplate>
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <p>@panel.X</p>
+                        <p>@panel.Y</p>
+                        <p>@panel.Width</p>
+                        <p>@panel.Height</p>
+                    </ContentTemplate>
+                </DashboardLayoutPanel>
+            }
+        </DashboardLayoutPanels>
+    </SfDashboardLayout>
+</div>
+@code  {
+    SfDashboardLayout dashboard;
+    public List<ResizeArgs> Events = new List<ResizeArgs>();
+    public List<DragStopArgs> DragEvents = new List<DragStopArgs>();
+    public List<List<SimplePanelDefinition>> Layouts = new List<List<SimplePanelDefinition>>();
+    public class SimplePanelDefinition
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public SimplePanelDefinition()
+        {
+        }
+        public SimplePanelDefinition(DashboardLayoutPanel panel)
+        {
+            X = panel.Column;
+            Y = panel.Row;
+            Width = panel.SizeX;
+            Height = panel.SizeY;
+        }
+    }
+    public List<SimplePanelDefinition> Panels { get; set; } = new List<SimplePanelDefinition>
+    {
+        new SimplePanelDefinition { X = 0, Y = 0, Width = 2, Height = 2 },
+        new SimplePanelDefinition { X = 2, Y = 2, Width = 2, Height = 2 },
+        new SimplePanelDefinition { X = 2, Y = 0, Width = 2, Height = 2 },
+        new SimplePanelDefinition { X = 2, Y = 2, Width = 2, Height = 2 }
+    };
+    public void DoubleColumns()
+    {
+        Panels = new List<SimplePanelDefinition>
+        {
+            new SimplePanelDefinition { X = 0, Y = 0, Width = 1, Height = 1 },
+            new SimplePanelDefinition { X = 0, Y = 1, Width = 1, Height = 1 },
+        };
+    }
+}
