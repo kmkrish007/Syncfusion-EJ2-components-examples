@@ -1,0 +1,171 @@
+﻿@page "/"
+
+
+@using Syncfusion.Blazor.Navigations
+<div class="container" style="display:flex">
+    <SfTreeView TValue="TeamDetails" AllowDragAndDrop="true">
+        <TreeViewFieldsSettings TValue="TeamDetails" Id="Id" Text="Name" Child="Children" DataSource="@Team" Expanded="Expanded"></TreeViewFieldsSettings>
+    </SfTreeView>
+    <SfTreeView TValue="TeamDetails" AllowDragAndDrop="true">
+        <TreeViewFieldsSettings TValue="TeamDetails" Id="Id" Text="Name" Child="Children" DataSource="@Drive" Expanded="Expanded"></TreeViewFieldsSettings>
+    </SfTreeView>
+</div>
+@code{
+    public class TeamDetails
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool Expanded { get; set; }
+        public bool Selected { get; set; }
+        public List<TeamDetails> Children;
+    }
+
+    List<TeamDetails> Team = new List<TeamDetails>();
+    List<TeamDetails> Drive = new List<TeamDetails>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        List<TeamDetails> EmployeeDetails = new List<TeamDetails>();
+        Team.Add(new TeamDetails
+        {
+            Id = "01",
+            Name = "ASP.NET MVC Team",
+            Expanded = true,
+            Children = EmployeeDetails,
+        });
+        EmployeeDetails.Add(new TeamDetails
+        {
+            Id = "01-01",
+            Name = "Smith",
+        });
+        EmployeeDetails.Add(new TeamDetails
+        {
+            Id = "01-02",
+            Name = "Johnson",
+        });
+        EmployeeDetails.Add(new TeamDetails
+        {
+            Id = "01-03",
+            Name = "Anderson"
+        });
+
+        List<TeamDetails> EmployeeDetails1 = new List<TeamDetails>();
+
+        Team.Add(new TeamDetails
+        {
+            Id = "02",
+            Name = "Windows Team",
+            Children = EmployeeDetails1,
+        });
+        EmployeeDetails1.Add(new TeamDetails
+        {
+            Id = "02-01",
+            Name = "Clark"
+        });
+        EmployeeDetails1.Add(new TeamDetails
+        {
+            Id = "02-02",
+            Name = "Wright"
+        });
+
+        List<TeamDetails> EmployeeDetails2 = new List<TeamDetails>();
+
+        Team.Add(new TeamDetails
+        {
+            Id = "03",
+            Name = "Web Team",
+            Children = EmployeeDetails2,
+        });
+        EmployeeDetails2.Add(new TeamDetails
+        {
+            Id = "03-01",
+            Name = "Joshua"
+        });
+        EmployeeDetails2.Add(new TeamDetails
+        {
+            Id = "03-02",
+            Name = "Matthew"
+        });
+
+        List<TeamDetails> Folder1 = new List<TeamDetails>();
+
+        Drive.Add(new TeamDetails
+        {
+            Id = "01",
+            Name = "Local Disk (C:)",
+            Children = Folder1,
+        });
+
+        List<TeamDetails> File1 = new List<TeamDetails>();
+
+        Folder1.Add(new TeamDetails
+        {
+            Id = "01-01",
+            Name = "Program Files",
+            Children = File1
+        });
+        File1.Add(new TeamDetails
+        {
+            Id = "01-01-01",
+            Name = "Windows NT"
+        });
+
+        List<TeamDetails> File2 = new List<TeamDetails>();
+
+        Folder1.Add(new TeamDetails
+        {
+            Id = "01-02",
+            Name = "Users",
+            Expanded = true,
+            Children = File2
+        });
+        File2.Add(new TeamDetails
+        {
+            Id = "01-02-01",
+            Name = "Smith"
+        });
+
+        List<TeamDetails> File3 = new List<TeamDetails>();
+
+        Folder1.Add(new TeamDetails
+        {
+            Id = "01-03",
+            Name = "Windows",
+            Children = File3
+        });
+        File3.Add(new TeamDetails
+        {
+            Id = "01-03-01",
+            Name = "Boot"
+        });
+
+        List<TeamDetails> Folder2 = new List<TeamDetails>();
+
+        Drive.Add(new TeamDetails
+        {
+            Id = "02",
+            Name = "Local Disk (D:)",
+            Children = Folder2,
+            Expanded = true,
+        });
+
+        List<TeamDetails> File4 = new List<TeamDetails>();
+
+        Folder2.Add(new TeamDetails
+        {
+            Id = "02-01",
+            Name = "Personals"
+        });
+        Folder2.Add(new TeamDetails
+        {
+            Id = "02-02",
+            Name = "Projects"
+        });
+        Folder2.Add(new TeamDetails
+        {
+            Id = "02-03",
+            Name = "Office"
+        });
+    }
+}
