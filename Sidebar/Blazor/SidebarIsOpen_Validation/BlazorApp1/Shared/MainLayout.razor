@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    @*<div class="sidebar">
+        <NavMenu />
+    </div>*@
+
+    <div class="main">
+        <div>
+            <ToolbarItemMainSidebarToggle />
+        </div>
+
+        <div class="content px-4">
+            <MainSidebarMobile />
+            @Body
+        </div>
+    </div>
+</div>

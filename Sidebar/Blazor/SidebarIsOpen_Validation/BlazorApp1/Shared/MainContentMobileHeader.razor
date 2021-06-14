@@ -1,0 +1,39 @@
+﻿<div class="i-mainContentMobileHeader i-height100Percent i-paddingContainerContentLeftRight">
+    <div class="i-mainContentMobileHeaderToggle">
+        <ToolbarItemMainSidebarToggle />
+    </div>
+    <div class="i-mainContentMobileHeaderSearch">
+        @*<SearchBox Width="100%" />*@
+    </div>
+</div>
+
+<style>
+    .i-mainContentMobileHeader {
+        height: 100%;
+        display: grid;
+        grid-template-rows: 100%;
+        grid-template-columns: 50px minmax(50px, 100%);
+        align-items: center;
+        justify-items: center;
+    }
+
+    .i-mainContentMobileHeaderSearch {
+        width: 100%
+    }
+
+    .i-mainContentMobileHeaderToggle {
+        width: 100%
+    }
+
+    button.i-mainContentMobileHeaderUserMenu {
+        background-image: url("_content/Incite.Web.Components/img/profileAvatar.jpg");
+        background-repeat: no-repeat;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        background-size: cover;
+        background-position: center center;
+        -webkit-border-radius: 99em;
+        -moz-border-radius: 50%;
+    }
+</style>

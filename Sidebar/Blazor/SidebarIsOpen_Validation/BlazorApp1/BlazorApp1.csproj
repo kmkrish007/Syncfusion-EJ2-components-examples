@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Shared\MainContentMobileHeader.razor" />
+    <Content Remove="Shared\NavMenu.razor" />
+    <Content Remove="Shared\SurveyPrompt.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\NavMenu.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="D:\EJ2\Source\ej2-blazor-source-BLAZ-12242-mas-tree\Syncfusion.Blazor\Syncfusion.Blazor.csproj" />
+  </ItemGroup>
+
+</Project>

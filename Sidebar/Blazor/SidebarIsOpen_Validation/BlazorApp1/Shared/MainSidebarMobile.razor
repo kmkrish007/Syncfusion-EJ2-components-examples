@@ -1,0 +1,100 @@
+﻿@using Syncfusion.Blazor.Navigations;
+@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Lists
+
+<div class="i-mainSidebarMobile">
+    <SfButton CssClass="e-flat"
+              IsToggle="true"
+              IsPrimary="false"
+              Content="Normal"
+              @onclick="Toggle">
+    </SfButton>
+
+    <SfSidebar @ref="sidebarObj" Width="100%"
+               Target=".i-mainContentMobile"
+               CloseOnDocumentClick="true"
+               Type="SidebarType.Over"
+               @bind-IsOpen="@SidebarToggle">
+        <ChildContent>
+            <MainSidebarMobileMenu />
+        </ChildContent>
+    </SfSidebar>
+    @*<SfTreeView TValue="MusicAlbum" ShowCheckBox="@showCheckBox">
+        <TreeViewFieldsSettings TValue="MusicAlbum" Id="Id" DataSource="@Albums" Text="Name" ParentID="ParentId"></TreeViewFieldsSettings>
+    </SfTreeView>
+
+    <SfCheckBox Label="Default" @bind-Checked="@isChecked"></SfCheckBox>*@
+
+    @*<SfListView DataSource="@Albums" ShowCheckBox="@ListCheckBox">
+        <ListViewFieldSettings TValue="MusicAlbum" Id="Id" Text="Name"></ListViewFieldSettings>
+    </SfListView>*@
+</div>
+
+<style>
+    .i-mainContentMobile {
+        margin-left: -1px;
+    }
+
+        .i-mainContentMobile .e-sidebar {
+            background-color: var(--backgroundColorMainSidebar);
+        }
+
+            .i-mainContentMobile .e-sidebar.e-left {
+                border-right: 0px;
+            }
+
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-selected,
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-focused,
+    .i-mainSidebarMobileMenu.e-menu-container .e-ul .e-menu-item.e-focused,
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-selected .e-caret,
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-selected .e-menu-url,
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-focused .e-menu-url,
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-focused .e-menu-icon::before,
+    .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-selected .e-menu-icon::before {
+        color: var(--colorMainSidebarHover);
+    }
+
+    .i-mainSidebarMobileMenu.e-menu-container.e-menu-popup {
+        background-color: var(--backgroundColorMainSidebar);
+    }
+
+    .i-mainSidebarMobileMenu.e-menu-,
+    .i-mainSidebarMobileMenu.e-menu-container ul {
+        background-color: var(--backgroundColorMainSidebar);
+        overflow: hidden;
+    }
+
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item .e-menu-url {
+            color: var(--colorMainSidebar);
+        }
+
+        /*.i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item,
+        .e-menu-container.e-hamburger ul .e-menu-item.e-menu-caret-icon {
+            padding: 0px 14px;
+        }*/
+
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-icon::before {
+            color: var(--colorMainSidebar);
+        }
+
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-menu-caret-icon {
+            width: 100%; /*must be the same value as SfSidebar Width="220px"*/
+        }
+
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item:hover,
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-focused:hover,
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-focused,
+        .i-mainSidebarMobileMenu.e-menu-container .e-ul .e-menu-item.e-focused,
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item.e-selected {
+            background-color: var(--backgroundColorMainSidebarHover);
+        }
+
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item .e-caret,
+        .i-mainSidebarMobileMenu.e-menu-container ul .e-menu-item {
+            color: var(--colorMainSidebar);
+        }
+
+    .e-sidebar {
+        height: 600%;
+    }
+</style>
