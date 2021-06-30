@@ -1,0 +1,27 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+@using Syncfusion.Blazor.Popups
+@inject IJSRuntime jsRuntime
+
+<div class="control-section">
+    <SfFileManager ID="file-manager" TValue="FileManagerDirectoryContent" View="ViewType.LargeIcons">
+        <FileManagerAjaxSettings Url="/FileOperations"
+                                 UploadUrl="/Upload"
+                                 DownloadUrl="/Download"
+                                 GetImageUrl="/GetImage">
+        </FileManagerAjaxSettings>
+        <FileManagerEvents TValue="FileManagerDirectoryContent" OnFileLoad="fileLoad"></FileManagerEvents>
+    </SfFileManager>
+</div>
+@code
+{
+    public int index = 1;
+    public async void fileLoad(FileLoadEventArgs<FileManagerDirectoryContent> args)
+    {
+        if(args.Module == "LargeIconView" && args.FileDetails.IsFile)
+        {
+            this.index = await jsRuntime.InvokeAsync<int>("appendTooltip", this.index);
+        }
+    }
+}
