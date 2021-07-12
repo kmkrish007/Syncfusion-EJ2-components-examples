@@ -1,0 +1,66 @@
+﻿@page "/accord"
+
+@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+
+
+<SfButton Content="RemoveFirstPanel" OnClick="RemoveFirstPanel"></SfButton>
+
+<SfAccordion>
+    <AccordionItems>
+        @foreach (AccordionData Item in AccordionItems)
+        {
+            <AccordionItem>
+                <HeaderTemplate>
+                    <div>@(Item.EmployeeName)</div>
+                </HeaderTemplate>
+            </AccordionItem>
+        }
+    </AccordionItems>
+</SfAccordion>
+
+@code {
+
+    public void RemoveFirstPanel()
+    {
+        // var itemToRemove = sections.Single(r => r.ID == "lay3");
+        // sections.Remove(itemToRemove);
+        AccordionItems.RemoveAt(AccordionItems.Count - 1);
+        // AccordionItems.RemoveAt(0);
+        StateHasChanged();
+    }
+    List<AccordionData> AccordionItems = new List<AccordionData>()
+{
+        new AccordionData
+        {
+        EmployeeId = 1,
+        EmployeeName = "Laura Callahan",
+        Designation = "Product Manager",
+        },
+        new AccordionData
+        {
+        EmployeeId = 3,
+        EmployeeName = "Andrew Fuller",
+        Designation = "Team Lead",
+        },
+        new AccordionData
+        {
+        EmployeeId = 4,
+        EmployeeName = "Anne Dodsworth",
+        Designation = "Developer"
+        },
+        new AccordionData
+        {
+        EmployeeId = 5,
+        EmployeeName = "Nancy Davolio",
+        Designation = "Product Manager"
+        }
+    };
+
+    public class AccordionData
+    {
+        public string EmployeeName { get; set; }
+        public int EmployeeId { get; set; }
+        public string Designation { get; set; }
+    }
+}

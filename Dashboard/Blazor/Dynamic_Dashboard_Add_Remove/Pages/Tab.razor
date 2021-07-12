@@ -1,0 +1,43 @@
+﻿@page "/tab"
+
+@using Syncfusion.Blazor.Buttons
+
+@using Syncfusion.Blazor.Navigations
+<SfButton Content="RemoveFirstPanel" OnClick="RemoveFirstPanel"></SfButton>
+
+<SfTab>
+    <TabItems>
+        @foreach (var type in sections)
+        {
+        <TabItem>
+            <ChildContent>
+                <TabHeader Text=@type.Text></TabHeader>
+            </ChildContent>
+        </TabItem>
+        }
+    </TabItems>
+</SfTab>
+
+@code{
+
+
+    List<SimplePanelDefinition> sections = new List<SimplePanelDefinition>  {
+         new SimplePanelDefinition { ID="lay1", Text="Chip1"   },
+         new SimplePanelDefinition { ID="lay2",Text="Chip2"   },
+         new SimplePanelDefinition { ID="lay3",Text="Chip3"  }
+     };
+
+    public class SimplePanelDefinition
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+    }
+    public void RemoveFirstPanel()
+    {
+        sections.RemoveAt(sections.Count - 1);
+        //sections.RemoveAt(0);
+        StateHasChanged();
+    }
+
+
+}

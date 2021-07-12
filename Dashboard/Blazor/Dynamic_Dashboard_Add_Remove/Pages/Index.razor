@@ -1,0 +1,118 @@
+@page "/"
+@using Syncfusion.Blazor.Layouts
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Lists
+
+<SfButton Content="Add Panel" OnClick="Add_panel"></SfButton>
+<SfButton Content="RemoveLastPanel" OnClick="RemoveLastPanel"></SfButton>
+
+<SfButton Content="RemoveFirstPanel" OnClick="RemoveFirstPanel"></SfButton>
+
+
+<SfButton Content="Remove Panel Method" OnClick="RemovePanelMethod"></SfButton>
+<SfDashboardLayout @ref="dashboardObject" Columns="5" AllowResizing="true">
+    <DashboardLayoutPanels>
+        @foreach (var section in sections)
+        {
+
+            string id = section.ID;
+            int row = section.Row;
+            int col = section.Col;
+            int width = section.Width;
+            int height = section.Height;
+            <DashboardLayoutPanel @key="section" Id="@id" SizeX=@width SizeY=@height Col=@col Row=@row>
+                <ContentTemplate>
+                    <div>Content element @id</div>
+                </ContentTemplate>
+            </DashboardLayoutPanel>
+        }
+    </DashboardLayoutPanels>
+</SfDashboardLayout>
+@code{
+    SfDashboardLayout dashboardObject;
+    public class Dashboards
+    {
+        public string Name { get; set; }
+    }
+    List<SimplePanelDefinition> sections = new List<SimplePanelDefinition>  {
+          new SimplePanelDefinition { ID="lay1", Row = 0,Col = 0, Width = 1, Height = 1   },
+          new SimplePanelDefinition { ID="lay2", Row = 0, Col = 1, Width = 1, Height = 1 },
+          new SimplePanelDefinition { ID="lay3", Row = 0, Col = 2, Width = 1, Height = 1 }
+     };
+    public class SimplePanelDefinition
+    {
+        public string ID { get; set; }
+        public int Row { get; set; }
+        public int Col { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public RenderFragment content { get; set; }
+        public string Header { set; get; }
+        public string Color { get; set; }
+    }
+    public int Count = 3;
+    public void Add_panel()
+    {
+        sections.Add(new SimplePanelDefinition
+        {
+            ID = this.Count.ToString() + "_layout",
+            Row = 1,
+            Col = 0,
+            Width = 1,
+            Height = 1
+        });
+        this.Count = this.Count + 1;
+        @*@foreach (var section in sections)
+              {
+                this.dashboardObject.AddPanel(new PanelModel
+                {
+                  SizeX = 1,
+                  SizeY = 1,
+                  Row =0,
+                  Column = 0,
+                  Content =@<div style="height:100%; width:100%;">
+              <SfListView DataSource="@Data">
+                <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+              </SfListView>
+            </div>});
+                }*@
+
+    StateHasChanged();
+}
+public void RemoveFirstPanel()
+{
+    // var itemToRemove = sections.Single(r => r.ID == "lay3");
+    // sections.Remove(itemToRemove);
+    //  dashboardObject.RemovePanel("lay3");
+    //    sections.RemoveAt(sections.Count - 1);
+    sections.RemoveAt(0);
+    StateHasChanged();
+}
+public void RemoveLastPanel()
+{
+    sections.RemoveAt(sections.Count - 1);
+    StateHasChanged();
+}
+public void RemovePanelMethod()
+{
+    dashboardObject.RemovePanel("lay3");
+    StateHasChanged();
+}
+List<DataModel> Data = new List<DataModel>();
+
+protected override void OnInitialized()
+{
+    base.OnInitialized();
+    Data.Add(new DataModel { Text = "Hennessey Venom", Id = "list-01" });
+    Data.Add(new DataModel { Text = "Bugatti Chiron", Id = "list-02" });
+    Data.Add(new DataModel { Text = "Bugatti Veyron Super Sport", Id = "list-03" });
+    Data.Add(new DataModel { Text = "SSC Ultimate Aero", Id = "list-04" });
+}
+
+public class DataModel
+{
+    public string Id { get; set; }
+    public string Text { get; set; }
+}
+}

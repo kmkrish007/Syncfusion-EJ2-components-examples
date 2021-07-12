@@ -1,0 +1,41 @@
+﻿@page "/menu"
+
+@using Syncfusion.Blazor.Buttons
+
+@using Syncfusion.Blazor.Navigations
+<SfButton Content="RemoveFirstPanel" OnClick="RemoveFirstPanel"></SfButton>
+
+<SfMenu TValue="MenuItem">
+    <MenuItems>
+        @foreach (var type in sections)
+        {
+            <MenuItem Text="@type.Text"></MenuItem>
+        }
+    </MenuItems>
+</SfMenu>
+
+@code{
+
+
+    List<SimplePanelDefinition> sections = new List<SimplePanelDefinition>  {
+         new SimplePanelDefinition { ID="lay1", Text="Chip1"   },
+         new SimplePanelDefinition { ID="lay2",Text="Chip2"   },
+         new SimplePanelDefinition { ID="lay3",Text="Chip3"  }
+     };
+
+    public class SimplePanelDefinition
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+    }
+    public void RemoveFirstPanel()
+    {
+        // var itemToRemove = sections.Single(r => r.ID == "lay3");
+        // sections.Remove(itemToRemove);
+        sections.RemoveAt(sections.Count - 1);
+       // sections.RemoveAt(0);
+        StateHasChanged();
+    }
+
+
+}
