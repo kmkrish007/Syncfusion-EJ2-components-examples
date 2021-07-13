@@ -1,0 +1,143 @@
+﻿@page "/"
+
+@using WebApplication1.ViewModels;
+
+<div class="details">
+    <SfButton OnClick="@Profile1" Content="Profile 1" />
+    <SfButton OnClick="@Profile2" Content="Profile 2"></SfButton>
+    <SfButton OnClick="@ToggleEditMode" Content="Toggle edit mode"></SfButton>
+</div>
+
+
+<SfDashboardLayout @ref="Dashboard" CellSpacing="@(new double[] {10, 10})" CellAspectRatio="2" Columns="5" 
+                   AllowFloating="false" AllowDragging="@IsInEditMode" ShowGridLines="@IsInEditMode" AllowResizing="@IsInEditMode"
+                   MediaQuery="max-width:700px">
+    <ChildContent>
+        <DashboardLayoutPanels>
+            @foreach (var layout in CurrentLayouts)
+            {
+                <DashboardLayoutPanel Id="@(layout.Id.ToString())" SizeX="@(layout.Size.SizeX)" SizeY="@(layout.Size.SizeY)"
+                                      Column="@(layout.Position.Column)" Row="@(layout.Position.Row)"
+                                      MinSizeY="@(layout.Size.MinSizeY)" MinSizeX="@(layout.Size.MinSizeX)"
+                                      MaxSizeX="@(layout.Size.MaxSizeX)" MaxSizeY="@(layout.Size.MaxSizeY)"
+                                      AllowDragging="true">
+                    <ContentTemplate>
+                        <span>@(layout.Value)</span>
+                    </ContentTemplate>
+                </DashboardLayoutPanel>
+            }
+        </DashboardLayoutPanels>
+    </ChildContent>
+</SfDashboardLayout>
+
+<style>
+
+    .details * {
+        margin-bottom: 15px !important;
+    }
+</style>
+
+
+@code
+{
+    public SfDashboardLayout Dashboard { get; set; }
+
+    public bool IsInEditMode { get; set; } = false;
+    public List<DashLayoutViewModel> CurrentLayouts;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        CurrentLayouts = _secondProfileCollection;
+    }
+
+    public void ToggleEditMode()
+    {
+        IsInEditMode = !IsInEditMode;
+        this.StateHasChanged();
+    }
+
+    public void Profile1()
+    {
+        CurrentLayouts = _firstProfileCollection;
+        this.StateHasChanged();
+    }
+
+    public void Profile2()
+    {
+        CurrentLayouts = _secondProfileCollection;
+        this.StateHasChanged();
+    }
+
+    public static List<DashLayoutViewModel> _firstProfileCollection = new List<DashLayoutViewModel>
+    {
+       new DashLayoutViewModel
+                        {
+                            Value = "Profile 1 Layout 1",
+                            Position = new DashLayoutPositionViewModel {Column = 0, Row = 0},
+                            Size = new DashLayoutSizeViewModel
+                            {
+                                MaxSizeX = 3, MaxSizeY = 3, SizeX = 1, SizeY = 1
+                            }
+                        },
+        new DashLayoutViewModel
+                        {
+                            Value = "Profile 1 Layout 2",
+                            Position = new DashLayoutPositionViewModel { Column = 1, Row = 0 },
+                            Size = new DashLayoutSizeViewModel
+                            {
+                                MaxSizeX = 3, MaxSizeY = 3, SizeX = 1, SizeY = 1
+                            }
+                        }
+                    };
+
+    public static List<DashLayoutViewModel> _secondProfileCollection = new List<DashLayoutViewModel>
+        {
+                        new DashLayoutViewModel
+                        {
+                            Value = "Profile 2 Layout 1",
+                            Position = new DashLayoutPositionViewModel {Column = 0, Row = 1},
+                            Size = new DashLayoutSizeViewModel
+                            {
+                                MaxSizeX = 1, MaxSizeY = 1, SizeX = 1, SizeY = 1
+                            }
+                        },
+                        new DashLayoutViewModel
+                        {
+                            Value = "Profile 2 Layout 2",
+                            Position = new DashLayoutPositionViewModel { Column = 1, Row = 1 },
+                            Size = new DashLayoutSizeViewModel
+                            {
+                                MaxSizeX = 1,
+                                MaxSizeY = 1,
+                                SizeX = 1,
+                                SizeY = 1
+                            }
+                        }
+                    };
+
+
+    public class DashLayoutViewModel
+    {
+
+        public DashLayoutViewModel()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; }
+
+        public DashLayoutPositionViewModel Position
+        {
+            get;
+            set;
+        }
+
+        public DashLayoutSizeViewModel Size
+        {
+            get;
+            set;
+        }
+
+        public string Value { get; set; }
+    }
+}
