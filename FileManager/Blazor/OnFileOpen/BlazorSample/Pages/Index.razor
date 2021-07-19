@@ -1,0 +1,31 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.FileManager
+
+<button @onclick="openfolder">GoToPreviousFolder</button>
+
+<SfFileManager @ref="filemanager" TValue="FileManagerDirectoryContent" Path="@currentPath">
+    <FileManagerAjaxSettings Url="/api/FileManager/FileOperations"
+                             UploadUrl="/api/FileManager/Upload"
+                             DownloadUrl="/api/FileManager/Download"
+                              GetImageUrl="/api/FileManager/GetImage">
+    </FileManagerAjaxSettings>
+    <FileManagerEvents TValue="FileManagerDirectoryContent" OnFileOpen="FileOpen"></FileManagerEvents>
+</SfFileManager>
+
+@code{
+    SfFileManager<FileManagerDirectoryContent> filemanager;
+    public string currentPath = "/";
+    public string prevPath { get; set; }
+    public void openfolder()
+    {
+        //Opens the previous folder
+        currentPath = prevPath;
+    }
+
+    public void FileOpen(FileOpenEventArgs<FileManagerDirectoryContent> args)
+    {
+        prevPath = currentPath;
+        currentPath = args.FileDetails.FilterPath.Replace('\\', '/') + args.FileDetails.Name + "/";
+    }
+}
