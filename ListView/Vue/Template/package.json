@@ -1,0 +1,62 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@syncfusion/ej2-buttons": "*",
+    "@syncfusion/ej2-calendars": "*",
+    "@syncfusion/ej2-dropdowns": "*",
+    "@syncfusion/ej2-inputs": "*",
+    "@syncfusion/ej2-lists": "*",
+    "@syncfusion/ej2-popups": "*",
+    "@syncfusion/ej2-vue-buttons": "*",
+    "@syncfusion/ej2-vue-calendars": "*",
+    "@syncfusion/ej2-vue-charts": "*",
+    "@syncfusion/ej2-vue-dropdowns": "*",
+    "@syncfusion/ej2-vue-grids": "*",
+    "@syncfusion/ej2-vue-inputs": "*",
+    "@syncfusion/ej2-vue-layouts": "^18.21.2",
+    "@syncfusion/ej2-vue-lists": "*",
+    "@syncfusion/ej2-vue-maps": "*",
+    "@syncfusion/ej2-vue-navigations": "^19.4.4",
+    "@syncfusion/ej2-vue-popups": "*",
+    "core-js": "^3.8.2",
+    "vue": "^3.0.5",
+    "vue-class-component": "^8.0.0-rc.1",
+    "vue-router": "^4.0.8"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.10",
+    "@vue/cli-plugin-eslint": "^4.5.10",
+    "@vue/cli-service": "^4.5.10",
+    "@vue/compiler-sfc": "^3.0.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^7.4.1",
+    "vue-loader-v16": "^16.0.0-beta.5.4"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
