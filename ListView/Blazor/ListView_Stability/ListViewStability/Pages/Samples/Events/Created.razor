@@ -1,0 +1,94 @@
+﻿@page "/events/created"
+
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
+@using Syncfusion.Blazor.Lists
+
+<div id="container">
+    <div class="flex vertical-center">
+        <div class="padding">
+            <h4>Created Event Testing</h4>
+            <SfListView DataSource="@DataSource" Width="300px">
+                <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+                <ListViewEvents TValue="ListDataModel"
+                                Created="@(e => Events.Add("ListView Created event triggered"))">
+                </ListViewEvents>
+            </SfListView>
+        </div>
+        <div class="sample padding tracker">
+            <ul style="list-style: none">
+                @for (var i = Events.Count - 1; i >= 0; i--)
+                {
+    <li>@Events[i]</li>
+}
+            </ul>
+        </div>
+    </div>
+</div>
+
+@code
+{ List<string> Events = new List<string>();
+
+    List<ListDataModel> DataSource = new List<ListDataModel>() {
+    new ListDataModel { Id = "1", Text = "Text 1" },
+    new ListDataModel { Id = "2", Text = "Text 2" },
+    new ListDataModel { Id = "3", Text = "Text 3" },
+    new ListDataModel { Id = "4", Text = "Text 4" },
+    new ListDataModel { Id = "5", Text = "Text 5" },
+    new ListDataModel { Id = "6", Text = "Text 6" },
+    new ListDataModel { Id = "7", Text = "Text 7" },
+};
+
+    class ListDataModel
+    {
+        public string Id
+        {
+            get;
+            set;
+        }
+        public string Text
+        {
+            get;
+            set;
+        }
+    } }
+<style>
+    #container .e-listview {
+        box-shadow: 0 1px 4px #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tracker {
+        max-height: 250px;
+        overflow: auto;
+    }
+
+    .sample {
+        justify-content: center;
+        min-height: 280px;
+        width: 750px;
+    }
+
+    .vertical-center {
+        align-items: center;
+    }
+
+    .padding {
+        padding: 4px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex__center {
+        justify-content: center;
+    }
+
+    .margin {
+        margin: 10px;
+    }
+     .sf-license-warning {
+        display: none;
+    }
+</style>

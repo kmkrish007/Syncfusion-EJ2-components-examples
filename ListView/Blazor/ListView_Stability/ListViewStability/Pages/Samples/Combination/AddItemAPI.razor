@@ -1,0 +1,609 @@
+﻿@page "/Combination/AddItemAPI"
+
+
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Inputs
+@using MSComponents = Microsoft.AspNetCore.Components
+<div class="col-lg-4 control-section" id="target">
+    <div class="control-wrapper">
+        <div class="sample-container">
+            <div class="default-section">
+                <SfListView DataSource="@DataSource" ShowHeader="@Header" HeaderTitle="@Title" Height="@height.ToString()" Width="@width.ToString()" @ref="EjsLists" ShowCheckBox="@IsCheck" EnablePersistence="@Persist" ShowIcon="@Icon" EnableRtl="@rtl" CheckBoxPosition="@chkPosition" SortOrder="@order" Animation="@animation">
+                    <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text" IconCss="Icon"></ListViewFieldSettings>
+                </SfListView>
+            </div>
+        </div>
+        <br />
+        <div class="sample-container">
+            <div class="default-section">
+                <SfListView DataSource="@ListData" ShowHeader="@Header" HeaderTitle="@Title" Height="@height.ToString()" Width="@width.ToString()" ShowCheckBox="@IsCheck" Enable="@Enabled" EnablePersistence="@Persist" ShowIcon="@Icon" EnableRtl="@rtl" CheckBoxPosition="@chkPosition" SortOrder="@order" Animation="@animation">
+                    <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text" Child="Child" IconCss="Icon" Tooltip="Text"></ListViewFieldSettings>
+                </SfListView>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-8 property-section">
+    <div id="property" title="Properties" style="height:1000px">
+        <table id="property" title="Properties">
+            <tbody>
+                <tr>
+                    <td>
+                        <div>Checkbox</div>
+                    </td>
+                    <td>
+                        <div>
+                            <SfCheckBox Label="Show Checkbox" @bind-Checked="@IsCheck"></SfCheckBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>Enable</div>
+                    </td>
+                    <td>
+                        <div>
+                            <SfCheckBox Label="Enable" @bind-Checked="@Enabled"></SfCheckBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>EnablePersistence</div>
+                    </td>
+                    <td>
+                        <div>
+                            <SfCheckBox Label="EnablePersistence" @bind-Checked="@Persist"></SfCheckBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <div>Header</div></td>
+                    <td>
+                        <div>
+                            <SfCheckBox Label="Show Header" @bind-Checked="@Header"></SfCheckBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>ShowIcon</div></td>
+                    <td>
+                        <div>
+                            <SfCheckBox Label="Show Icon" @bind-Checked="@Icon"></SfCheckBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>EnableRtl</div></td>
+                    <td>
+                        <div>
+                            <SfCheckBox Label="EnableRtl" @bind-Checked="@rtl"></SfCheckBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>Checkbox Position</div></td>
+                    <td>
+                        <div>
+                            <select class="form-control" style="height: 32px;" @onchange="@((e) => { SelectItems(e); })">
+                                <option value="Left"> Left</option>
+                                <option value="Right">Right</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>Height</div></td>
+                    <td>
+                        <div>
+                            <Syncfusion.Blazor.Inputs.SfNumericTextBox TValue="int" Width="120px" @bind-Value="@height"></Syncfusion.Blazor.Inputs.SfNumericTextBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>Width</div></td>
+                    <td>
+                        <div>
+                            <Syncfusion.Blazor.Inputs.SfNumericTextBox TValue="int" Width="120px" @bind-Value="@width"></Syncfusion.Blazor.Inputs.SfNumericTextBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>Sort Order</div></td>
+                    <td>
+                        <div>
+                            <select class="form-control" style="height: 32px;" @onchange="@((e) => { sorting(e); })">
+                                <option value="Ascending"> Ascending</option>
+                                <option value="Descending">Descending</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>Header Title</div></td>
+                    <td>
+                        <div>
+                            <Syncfusion.Blazor.Inputs.SfTextBox Width="120px" @bind-Value="@Title"></Syncfusion.Blazor.Inputs.SfTextBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>Animation </div>
+                    </td>
+                    <td>
+                        <div>
+                            <select class="form-control" style="height: 32px;" @onchange="@((e) => { Animate(e); })">
+                                <option value="Fade"> Fade</option>
+                                <option value="None">None</option>
+                                <option value="SlideDown"> SlideDown</option>
+                                <option value="SlideLeft">SlideLeft</option>
+                                <option value="Zoom"> Zoom</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div>Duration</div>
+                    </td>
+                    <td>
+                        <SfNumericTextBox TValue="double" Value=300 @ref="Ejsnum" Width="120px"></SfNumericTextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>Change DataSource</div>
+                    </td>
+                    <td>
+                        <div>
+                            <SfButton CssClass="m-5" @onclick="@ChangeDataSource">Change Data Source</SfButton>
+                        </div>
+                    </td>
+                </tr>
+                <tr><b>Methods:</b></tr>
+                <tr>
+                    <td><div>Enter ID value</div></td>
+                    <td>
+                        <div>
+                            <SfTextBox Width="120px" @ref="EjsId1"></SfTextBox>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><div>Enter Text value</div></td>
+                    <td>
+                        <div>
+                            <SfTextBox Width="120px" @ref="Ejstext1"></SfTextBox>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div>
+                            <button class="e-btn" @onclick="@Add" id="Add">Add item</button>
+                        </div>
+                        <div>
+                            <button class="e-btn" @onclick="@Remove" id="remove">Remove item</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button class="e-btn" @onclick="@Check" id="check">Check item</button>
+                        </div>
+                        <div>
+                            <button class="e-btn" @onclick="@UnCheck" id="check">UnCheck item</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button class="e-btn" @onclick="@Hide" id="hide">Hide item</button>
+                        </div>
+                        <div>
+                            <button class="e-btn" @onclick="@Show" id="show">Show item</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button class="e-btn" @onclick="@Disable" id="disable">Disable item</button>
+                        </div>
+                        <div>
+                            <button class="e-btn" @onclick="@EnableItem" id="Enable">Enable item</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button class="e-btn" @onclick="@Select" id="select">Select item</button>
+                        </div>
+                        <div>
+                            <button class="e-btn" @onclick="@Find" id="find">Find item</button>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><div>Enter ID value</div></td>
+                    <td>
+                        <div>
+                            <SfTextBox Width="120px" @ref="EjsId2"></SfTextBox>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><div>Enter ID value</div></td>
+                    <td>
+                        <div>
+                            <SfTextBox Width="120px" @ref="EjsId3"></SfTextBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div>Enter Text Value 1</div></td>
+                    <td>
+                        <div>
+                            <SfTextBox Width="120px" @ref="Ejstext2"></SfTextBox>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><div>Enter Text Value 2</div></td>
+                    <td>
+                        <div>
+                            <SfTextBox Width="120px" @ref="Ejstext3"></SfTextBox>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <button class="e-btn" @onclick="@SelectMultiple" id="multiple">Select Multiple items</button>
+                        </div>
+                        <div>
+                            <button class="e-btn" @onclick="@RemoveMultiple" id="removeitems">Remove Multiple item</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@code{
+    SfListView<ListDataModel> EjsLists;
+    SfNumericTextBox<double> Ejsnum;
+    public static SfTextBox EjsId1, Ejstext1, EjsId2, EjsId3, Ejstext2, Ejstext3;
+    public bool IsCheck = true;
+    public bool Enabled = true;
+    public bool Persist = true;
+    public bool Header = true;
+    public bool Icon = true;
+    public bool rtl = true;
+    public int height = 250;
+    public int width = 400;
+    public string Title = "Folder List";
+    Syncfusion.Blazor.Lists.ListViewEffect effects, Loop;
+    AnimationSettings animation = new AnimationSettings() { Duration = 300, Effect = ListViewEffect.Fade };
+    void ChangeDataSource()
+    {
+        DataSource = new List<ListDataModel>()
+{
+               new ListDataModel{ Id = "1", Text = "Modified source 1"},
+                new ListDataModel{ Id = "2", Text = "Modified source 2"},
+                 new ListDataModel{ Id = "3", Text = "Modified source 3"},
+                new ListDataModel{ Id = "4", Text = "Modified source 4"},
+                new ListDataModel{ Id = "5", Text = "Modified source 5"},
+                new ListDataModel{ Id = "6", Text = "Modified source 6"}
+
+        };
+    }
+
+    List<ListDataModel> DataSource = new List<ListDataModel>();
+    class ListDataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public string Icon { get; set; }
+    }
+    List<DataModel> ListData = new List<DataModel>();
+    class DataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public string Icon { get; set; }
+        public List<DataModel> Child { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        DataSource.Add(new ListDataModel
+        {
+            Id = "01",
+            Text = "Music",
+            Icon = "folder"
+        });
+        DataSource.Add(new ListDataModel
+        {
+            Id = "02",
+            Text = "Videos",
+            Icon = "folder"
+        });
+        DataSource.Add(new ListDataModel
+        {
+            Id = "03",
+            Text = "Documents",
+            Icon = "folder"
+        });
+        DataSource.Add(
+        new ListDataModel
+        {
+            Id = "04",
+            Text = "Pictures",
+            Icon = "folder"
+        });
+        DataSource.Add(
+        new ListDataModel
+        {
+            Id = "05",
+            Text = "Downloads",
+            Icon = "folder"
+        });
+        ListData.Add(new DataModel
+        {
+            Id = "01",
+            Text = "Music",
+            Icon = "folder",
+            Child = new List<DataModel>() { new DataModel { Id = "01-01", Text = "Gouttes.mp3", Icon = "file" } }
+        });
+        ListData.Add(new DataModel
+        {
+            Id = "02",
+            Text = "Videos",
+            Icon = "folder",
+            Child = new List<DataModel>() {
+                    new DataModel { Id= "02-01", Text= "Naturals.mp4", Icon= "file" },
+                    new DataModel { Id= "02-02", Text= "Wild.mpeg", Icon= "file" },
+                }
+        });
+        ListData.Add(new DataModel
+        {
+            Id = "03",
+            Text = "Documents",
+            Icon = "folder",
+            Child = new List<DataModel>() {
+                   new DataModel { Id= "03-01", Text= "Environment Pollution.docx", Icon= "file" },
+                   new DataModel { Id= "03-02", Text= "Global Water, Sanitation, & Hygiene.docx", Icon= "file" },
+                   new DataModel { Id= "03-03", Text= "Global Warming.ppt", Icon= "file" },
+                   new DataModel { Id= "03-04", Text= "Social Network.pdf", Icon= "file" },
+                   new DataModel { Id= "03-05", Text= "Youth Empowerment.pdf", Icon= "file" }
+                }
+        });
+        ListData.Add(
+            new DataModel
+            {
+                Id = "04",
+                Text = "Pictures",
+                Icon = "folder",
+                Child = new List<DataModel>() {
+                new DataModel { Id= "04-01", Text= "Camera Roll", Icon= "folder", Child= new List<DataModel>() {
+                    new DataModel { Id= "04-01-01", Text= "WIN_20160726_094117.JPG", Icon= "file" },
+                    new DataModel { Id= "04-01-02", Text= "WIN_20160726_094118.JPG", Icon= "file" },
+                    new DataModel { Id= "04-01-03", Text= "WIN_20160726_094119.JPG", Icon= "file" } }
+                },
+                new  DataModel { Id= "04-02", Text= "Wind.jpg", Icon= "file" },
+                new DataModel { Id= "04-02", Text= "Stone.jpg", Icon= "file" },
+                new  DataModel { Id= "04-02", Text= "Home.jpg", Icon= "file" },
+                new DataModel { Id= "04-02", Text= "Bridge.png", Icon= "file" } }
+            });
+    }
+
+
+    public class Position
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+    }
+    private List<Position> Pos = new List<Position>() {
+        new Position(){ ID= "1", Text= "Left" },
+        new Position(){ ID= "2", Text= "Right" }
+     };
+    void Animate(MSComponents.ChangeEventArgs e)
+    {
+
+        Syncfusion.Blazor.Lists.ListViewEffect animate = (Syncfusion.Blazor.Lists.ListViewEffect)Enum.Parse(typeof(Syncfusion.Blazor.Lists.ListViewEffect), e.Value.ToString());
+        foreach (Syncfusion.Blazor.Lists.ListViewEffect val in Enum.GetValues(typeof(Syncfusion.Blazor.Lists.ListViewEffect)))
+        {
+            Loop = (Syncfusion.Blazor.Lists.ListViewEffect)Enum.Parse(typeof(Syncfusion.Blazor.Lists.ListViewEffect), val.ToString());
+            if (animate == Loop)
+            {
+                effects = val;
+                animation = new AnimationSettings() { Duration = Ejsnum.Value, Effect = effects };
+            }
+        }
+    }
+    Syncfusion.Blazor.Lists.CheckBoxPosition chkPosition, LoopPos;
+    void SelectItems(MSComponents.ChangeEventArgs e)
+    {
+        Syncfusion.Blazor.Lists.CheckBoxPosition selectedPos = (Syncfusion.Blazor.Lists.CheckBoxPosition)Enum.Parse(typeof(Syncfusion.Blazor.Lists.CheckBoxPosition), e.Value.ToString());
+        foreach (Syncfusion.Blazor.Lists.CheckBoxPosition pos in Enum.GetValues(typeof(Syncfusion.Blazor.Lists.CheckBoxPosition)))
+        {
+            LoopPos = (Syncfusion.Blazor.Lists.CheckBoxPosition)Enum.Parse(typeof(Syncfusion.Blazor.Lists.CheckBoxPosition), pos.ToString());
+            if (selectedPos == LoopPos)
+            {
+                chkPosition = pos;
+            }
+        }
+    }
+    Syncfusion.Blazor.Lists.SortOrder order = Syncfusion.Blazor.Lists.SortOrder.Ascending, Looping;
+    void sorting(MSComponents.ChangeEventArgs e)
+    {
+        Syncfusion.Blazor.Lists.SortOrder sort = (Syncfusion.Blazor.Lists.SortOrder)Enum.Parse(typeof(Syncfusion.Blazor.Lists.SortOrder), e.Value.ToString());
+        foreach (Syncfusion.Blazor.Lists.SortOrder ord in Enum.GetValues(typeof(Syncfusion.Blazor.Lists.SortOrder)))
+        {
+            Looping = (Syncfusion.Blazor.Lists.SortOrder)Enum.Parse(typeof(Syncfusion.Blazor.Lists.SortOrder), ord.ToString());
+            if (sort == Looping)
+            {
+                order = ord;
+            }
+        }
+
+    }
+
+    public void Add()
+    {
+        //List<ListDataModel> Data = new List<ListDataModel>()
+        //     {
+        //                new ListDataModel{ Id = EjsId1.Value, Text = Ejstext1.Value}
+        //     };
+        DataSource.Add(new ListDataModel { Id = EjsId1.Value, Text = Ejstext1.Value });
+        // EjsLists.AddItem(Data, null);
+    }
+    public void Remove()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+
+        EjsLists.RemoveItem(list);
+    }
+    public void Check()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.CheckItem(list);
+    }
+    public void UnCheck()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.UncheckItem(list);
+    }
+    public void Hide()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.HideItem(list);
+    }
+    public void Show()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.ShowItem(list);
+    }
+    public void Disable()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.DisableItem(list);
+    }
+    public void EnableItem()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.EnableItem(list);
+    }
+    public void Select()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        EjsLists.SelectItem(list);
+    }
+    async void Find()
+    {
+
+        ListDataModel list = new ListDataModel()
+        {
+            Id = EjsId1.Value,
+            Text = Ejstext1.Value
+        };
+        //var ele = await EjsLists.FindItem(list);
+    }
+
+    public void SelectMultiple()
+    {
+        List<ListDataModel> Data = new List<ListDataModel>()
+{
+        new ListDataModel{ Id = EjsId2.Value, Text = Ejstext2.Value},
+        new ListDataModel{ Id = EjsId3.Value, Text = Ejstext3.Value}
+    };
+        EjsLists.SelectMultipleItems(Data);
+    }
+    public void RemoveMultiple()
+    {
+        List<ListDataModel> Data = new List<ListDataModel>()
+{
+        new ListDataModel{ Id = EjsId2.Value, Text = Ejstext2.Value},
+        new ListDataModel{ Id = EjsId3.Value, Text = Ejstext3.Value}
+    };
+        EjsLists.RemoveMultipleItems(Data);
+    }
+}
+<style>
+    .property-section table td {
+        width: 50%;
+    }
+
+    .property-section table div {
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .e-listview .e-list-icon {
+        height: 24px;
+        width: 30px;
+    }
+
+    .folder {
+        background-repeat: no-repeat;
+        background-image: url("css/listview/images/file_icons.png");
+        background-position: -5px -466px;
+        background-size: 302%;
+    }
+
+    .file {
+        background-repeat: no-repeat;
+        background-image: url("css/listview/images/file_icons.png");
+        background-position: -5px -151px;
+        background-size: 302%;
+    }
+
+    .col-lg-8 {
+        left: 423px;
+        bottom: 484px;
+    }
+</style>

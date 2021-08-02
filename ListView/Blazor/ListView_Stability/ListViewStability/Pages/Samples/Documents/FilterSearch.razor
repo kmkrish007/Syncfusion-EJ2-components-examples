@@ -1,0 +1,82 @@
+﻿@page "/documents/filtersearch"
+
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Lists
+
+<div id="container">
+    <div id="sample">
+        <SfTextBox ID="search" Placeholder="Filter" Input="@OnInput"></SfTextBox>
+        <SfListView ID="list" DataSource="@ListData">
+            <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+        </SfListView>
+    </div>
+</div>
+
+@code
+{
+    List<ListDataModel> ListData = new List<ListDataModel>();
+    List<ListDataModel> DataSource = new List<ListDataModel>() {
+    new ListDataModel {
+        Text = "Hennessey Venom",
+        Id = "list-01"
+    },
+    new ListDataModel {
+        Text = "Bugatti Chiron",
+        Id = "list-02"
+    },
+    new ListDataModel {
+        Text = "Bugatti Veyron Super Sport",
+        Id = "list-03"
+    },
+    new ListDataModel {
+        Text = "SSC Ultimate Aero",
+        Id = "list-04"
+    },
+    new ListDataModel {
+        Text = "Koenigsegg CCR",
+        Id = "list-05"
+    },
+    new ListDataModel {
+        Text = "McLaren F1",
+        Id = "list-06"
+    }
+};
+
+    protected override void OnInitialized()
+    {
+        ListData = DataSource;
+    }
+
+    void OnInput(InputEventArgs eventArgs)
+    {
+        ListData = DataSource.FindAll(e => e.Text.ToLower().StartsWith(eventArgs.Value.ToLower()));
+    }
+
+    class ListDataModel
+    {
+        public string Id
+        {
+            get;
+            set;
+        }
+        public string Text
+        {
+            get;
+            set;
+        }
+    }
+}
+
+<style>
+    #list {
+        box-shadow: 0 1px 4px #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #sample {
+        height: 220px;
+        margin: 0 auto;
+        display: block;
+        max-width: 350px;
+    }
+</style>

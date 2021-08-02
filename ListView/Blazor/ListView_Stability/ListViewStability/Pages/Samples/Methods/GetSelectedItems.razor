@@ -1,0 +1,82 @@
+﻿@page "/methods/getselecteditems"
+
+@using Syncfusion.Blazor.Lists
+
+<div style="display: flex">
+    <div class="margin">
+        <SfListView ID="Listview" @ref="@SfList"
+                    DataSource="@DataSource"
+                    ShowCheckBox="true">
+            <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+        </SfListView>
+    </div>
+    <div class="margin">
+        <div class="padding">
+            <button id="selected" class="e-btn" @onclick="@OnSelect">Get Selected Items</button>
+        </div>
+        <div class="padding">
+            <table>
+                <tr>
+                    <th>Text</th>
+                    <th>Id</th>
+                </tr>
+                @foreach (var item in SelectedItems)
+                {
+                    <tr>
+                        <td>@item.Text</td>
+                        <td>@item.Id</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    SfListView<ListDataModel> SfList;
+
+    List<ListDataModel> SelectedItems = new List<ListDataModel>();
+
+    List<ListDataModel> DataSource = new List<ListDataModel>()
+{
+        new ListDataModel{ Id = "1", Text = "Artwork"},
+        new ListDataModel{ Id = "2", Text = "Abstract"},
+        new ListDataModel{ Id = "3", Text = "Modern Painting"},
+        new ListDataModel{ Id = "4", Text = "Ceramics"},
+        new ListDataModel{ Id = "5", Text = "Animation Art"},
+        new ListDataModel{ Id = "6", Text = "Oil Painting"},
+    };
+
+    async void OnSelect()
+    {
+        var items = await SfList.GetSelectedItems();
+        if (items.Data != null)
+        {
+            SelectedItems = items.Data;
+            this.StateHasChanged();
+        }
+    }
+
+    class ListDataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+    }
+
+}
+
+<style>
+    .margin {
+        margin: 10px;
+        width: 300px;
+    }
+
+    .padding {
+        padding: 10px 0;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>

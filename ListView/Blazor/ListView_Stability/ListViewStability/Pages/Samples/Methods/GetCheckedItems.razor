@@ -1,0 +1,43 @@
+﻿@page "/methods/getcheckeditems"
+
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Buttons
+
+<SfListView ID="Listview" @ref="listRef" DataSource="@Data" ShowCheckBox="true">
+    <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text" IsChecked="IsChecked"></ListViewFieldSettings>
+</SfListView>
+<SfButton ID="Check" Content="Check Items" OnClick="check"></SfButton>
+<SfButton ID="Getcheck" Content="Get Checked Items" OnClick="getChecked"></SfButton>
+
+@code {
+    SfListView<DataModel> listRef;
+
+    List<DataModel> Data = new List<DataModel>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Data.Add(new DataModel { Text = "Hennessey Venom", Id = "list-01" });
+        Data.Add(new DataModel { Text = "Hennessey Venom1", Id = "list-02" });
+        Data.Add(new DataModel { Text = "Hennessey Venom2", Id = "list-03" });
+        Data.Add(new DataModel { Text = "Hennessey Venom3", Id = "list-04" });
+    }
+
+    public class DataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public bool IsChecked { get; set; }
+    }
+    public void check()
+    {
+        this.Data[0].IsChecked = true;
+        StateHasChanged();
+    }
+
+    public async Task getChecked()
+    {
+        var checkedItems = await this.listRef.GetCheckedItems();
+
+    }
+} 

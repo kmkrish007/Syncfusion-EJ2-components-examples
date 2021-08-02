@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30626.31
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListViewStability", "ListViewStability\ListViewStability.csproj", "{501D86F4-0775-4074-A4B6-8515DB8691EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Blazor", "D:\EJ2\Source\ej2-blazor-source-hotfix\Syncfusion.Blazor\Syncfusion.Blazor.csproj", "{B91790BA-86CA-46DC-957F-E1B78C246CFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{501D86F4-0775-4074-A4B6-8515DB8691EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{501D86F4-0775-4074-A4B6-8515DB8691EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{501D86F4-0775-4074-A4B6-8515DB8691EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{501D86F4-0775-4074-A4B6-8515DB8691EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91790BA-86CA-46DC-957F-E1B78C246CFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91790BA-86CA-46DC-957F-E1B78C246CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91790BA-86CA-46DC-957F-E1B78C246CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91790BA-86CA-46DC-957F-E1B78C246CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91A7CF1F-396B-4F4D-B42B-39E358DB60AA}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,39 @@
+﻿@page "/Combination/htmlattributes"
+
+
+<button @onclick="@HTMLAttrChange">HtmlAttr</button>
+
+<SfListView DataSource="@Data">
+    <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text" HtmlAttributes="HtmlAttributes"></ListViewFieldSettings>
+</SfListView>
+
+@code {
+
+        public DataModel[] Data =
+    {
+        new DataModel { Text = "ArtWork", Id = "list-01", HtmlAttributes = new Dictionary<string, object>() {{"style", "background:lightblue;" }} },
+            new DataModel { Text = "ArtWork1", Id = "list-02", HtmlAttributes = new Dictionary<string, object>() {{"style", "background:red;" }} },
+        new DataModel { Text = "ArtWork2", Id = "list-03", HtmlAttributes = new Dictionary<string, object>() {{"style", "background:yellow;"}} },
+        new DataModel { Text = "ArtWork3", Id = "list-04", HtmlAttributes = new Dictionary<string, object>() {{"style", "background:red;" }} },
+            new DataModel { Text = "ArtWork4", Id = "list-05", HtmlAttributes = new Dictionary<string, object>() {{"style", "background:green;" }} }
+        };
+    public class DataModel
+    {
+        public string Text { get; set; }
+        public string Id { get; set; }
+        public Dictionary<string, object> HtmlAttributes { get; set; }
+    }
+
+    public void HTMLAttrChange(MouseEventArgs args)
+    {
+        Data[0].HtmlAttributes = new Dictionary<string, object>() { { "style", "background:blue;" } };
+        StateHasChanged();
+    }
+}
+
+<style>
+ .sf-license-warning {
+        display: none;
+    }
+
+    </style>

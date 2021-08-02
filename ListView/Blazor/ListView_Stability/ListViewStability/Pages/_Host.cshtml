@@ -1,0 +1,36 @@
+﻿@page "/"
+@namespace ListViewStability.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ListViewStability</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="ListViewStability.styles.css" rel="stylesheet" />
+    @*<link href="_content/Syncfusion.Blazor/styles/bootstrap4.css" rel="stylesheet" />*@
+    <link href="~/_content/Syncfusion.Blazor/styles/bootstrap4.css" rel="stylesheet" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+    <script src="_framework/blazor.server.js"></script>
+    <script>
+        function ListViewCreated() {
+            return document.getElementById("virtualList").querySelectorAll("li").length;
+        }
+       
+        function onClick(id) {
+            var proxy = id;
+            setTimeout(function () { document.getElementById(proxy).select(); }, 3000);
+            console.log(id);
+        }
+    </script>
+</body>
+</html>

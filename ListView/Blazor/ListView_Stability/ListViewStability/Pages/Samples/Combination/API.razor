@@ -1,0 +1,371 @@
+﻿@page "/Combination/API"
+@using Syncfusion.Blazor.Lists
+@inject IJSRuntime JS;
+<table>
+    <tr>
+        <th>Checkbox position:</th>
+        <td>
+            <select @onchange="@cbPosChange">
+                @foreach (var cbPos in cbPoss)
+                {
+                    <option value="@cbPos">@cbPos</option>
+                }
+            </select>
+        </td>
+        <th>CheckBox:</th>
+        <td>
+            <select @onchange="@CheckChange">
+                @foreach (var val in checkboxState)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>EnableRTL:</th>
+        <td>
+            <select id="rtl" @onchange="@ChangeRTL">
+                @foreach (var val in RTLState)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>CssClass:</th>
+        <td>
+            <input id="cssclass" placeholder="Enter your text" @onchange="@onChange" style="width:75px;" />
+        </td>
+        <th>Enable:</th>
+        <td>
+            <select id="enable" @onchange="@ChangeEnable">
+                @foreach (var val in checkboxState)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>ShowIcon:</th>
+        <td>
+            <select id="showicon" @onchange="@ChangeIconState">
+                @foreach (var val in checkboxState)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>SortOrder:</th>
+        <td>
+            <select id="sortorder" @onchange="@ChangeSortOrder">
+                @foreach (var val in orderSort)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>ShowHeader:</th>
+        <td>
+            <select id="show_header" @onchange="@toggleHeader">
+                @foreach (var val in checkboxState)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>Height:</th>
+        <td>
+            <input id="height" placeholder="height" @onchange="@onHeightChange" style="width:50px;" />
+        </td>
+        <th>Width:</th>
+        <td>
+            <input id="width" placeholder="width" @onchange="@onWidthChange" style="width:50px;" />
+        </td>
+    </tr>
+    <tr>
+        <th>HeaderTitle:</th>
+        <td>
+            <input id="header_title" placeholder="header title" @onchange="@HeaderChange" style="width:75px;" />
+        </td>
+        <th>HTMLAttribute:</th>
+        <td>
+            <button id="htmlattribute" @onclick="@HTMLAttrChange">HtmlAttr</button>
+        </td>
+        <th>Virtulization:</th>
+        <td>
+            <select id="virtual" @onchange="@virtualChange">
+                @foreach (var val in checkboxState)
+                {
+                    <option value="@val.ToString()">@val</option>
+                }
+            </select>
+        </td>
+        <th>DataSource:</th>
+        <td>
+            <button id="datasource" @onclick="@UpdateDataSource">UpdateDataSource</button>
+            @*this will not work now in this sample, as we receive datasource from model file*@
+        </td>
+    </tr>
+</table>
+<br>
+<div style="display:inline-flex;">
+    <div class="inLi">
+        <h5> Nested List</h5>
+        <SfListView ID="nested_list" ShowIcon="@showIcon" DataSource="@DataModel.GetData()" ShowHeader="showHeader" HeaderTitle="@HeaderVal" Animation="zoomAnimate" ShowCheckBox="toggleCheckbox" CheckBoxPosition="chkPosition" CssClass="@cssClass" EnableRtl="@RTL" Enabled="@_enable" Width="@widthVal" Height="@heightVal" HtmlAttributes="@htmlAttribute" SortOrder="sortOrder">
+            <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text" Child="Child" IconCss="Icon" Tooltip="Text"></ListViewFieldSettings>
+        </SfListView>
+    </div>
+    <br>
+    <div class="inLi">
+        <h6> Total LI in <b>Virtual List</b>: @liCount</h6>
+        <SfListView @ref="vList" ShowIcon="@showIcon" ID="virtualList" DataSource="@DataModel.GetVirtualData()" ShowCheckBox="toggleCheckbox" CheckBoxPosition="chkPosition" CssClass="@cssClass" EnableRtl="@RTL" Enabled="@_enable" Width="@widthVal" Height="@heightVal" HtmlAttributes="@htmlAttribute" SortOrder="sortOrder" ShowHeader="showHeader" HeaderTitle="@HeaderVal" EnableVirtualization="enableVirtualization">
+            <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text" IconCss="Icon" Tooltip="Text"></ListViewFieldSettings>
+            <ListViewEvents OnActionComplete="ActionCompleted" TValue="DataModel"></ListViewEvents>
+        </SfListView>
+    </div>
+    <div class="inLi">
+        <h5> Simple List</h5>
+        @*no datasource update code written for this case*@
+        <SfListView ID="simple_list" @ref="sList" DataSource="@simpleDataModel.GetSimpleData()" ShowIcon="@showIcon" ShowHeader="showHeader" HeaderTitle="@HeaderVal" ShowCheckBox="toggleCheckbox" CheckBoxPosition="chkPosition" CssClass="@cssClass" EnableRtl="@RTL" Enabled="@_enable" Width="@widthVal" Height="@heightVal" HtmlAttributes="@htmlAttribute" SortOrder="sortOrder">
+            <ListViewFieldSettings TValue="simpleDataModel" Id="Id" Text="Text" IconCss="Icon" Tooltip="Text"></ListViewFieldSettings>
+        </SfListView>
+    </div>
+    <div class="inLi">
+        <h5> Grouping List</h5>
+        @*no datasource update code written for this case*@
+        <SfListView ID="grouping_list" DataSource="@simpleDataModel.GetSimpleData()" ShowIcon="@showIcon" ShowHeader="showHeader" HeaderTitle="@HeaderVal" ShowCheckBox="toggleCheckbox" CheckBoxPosition="chkPosition" CssClass="@cssClass" EnableRtl="@RTL" Enabled="@_enable" Width="@widthVal" Height="@heightVal" HtmlAttributes="@htmlAttribute" SortOrder="sortOrder">
+            <ListViewFieldSettings TValue="simpleDataModel" Id="Id" Text="Text" IconCss="Icon" GroupBy="Type"></ListViewFieldSettings>
+        </SfListView>
+    </div>
+    <div>
+        <h5> Templates List</h5>
+        <SfListView ID="list" DataSource="@DataTemplateModel.GetData()" CssClass="e-list-template" ShowIcon="@showIcon" ShowHeader="showHeader" HeaderTitle="@HeaderVal" ShowCheckBox="toggleCheckbox" CheckBoxPosition="chkPosition" EnableRtl="@RTL" Enabled="@_enable" Width="@widthVal" Height="@heightVal" HtmlAttributes="@htmlAttribute" SortOrder="sortOrder">
+            <ListViewFieldSettings Id="Id" Text="Name" GroupBy="Category" TValue="DataTemplateModel"></ListViewFieldSettings>
+            <ListViewTemplates TValue="DataTemplateModel">
+                <Template>
+                    <div class="e-list-wrapper e-list-multi-line e-list-avatar">
+                        <img class="e-avatar e-avatar-circle" src=@context.Image style="background:#BCBCBC" />
+                        <span class="e-list-item-header">@context.Name</span>
+                        <span class="e-list-content">@context.Contact</span>
+                    </div>
+                </Template>
+                <GroupTemplate>
+                    <div>
+                        <span class="category">Type: @context.Text</span>
+                    </div>
+                </GroupTemplate>
+            </ListViewTemplates>
+        </SfListView>
+    </div>
+</div>
+
+
+@code{
+    SfListView<DataModel> vList;
+    SfListView<simpleDataModel> sList;
+    public AnimationSettings zoomAnimate = new AnimationSettings() { Effect = ListViewEffect.Zoom, Duration = 1000, Easing = "ease" };
+    List<SortOrder> orderSort = new List<SortOrder>() { SortOrder.None, SortOrder.Ascending, SortOrder.Descending };
+    List<CheckBoxPosition> cbPoss = new List<CheckBoxPosition>() { CheckBoxPosition.Right, CheckBoxPosition.Left };
+    CheckBoxPosition chkPosition = CheckBoxPosition.Right;
+    bool toggleCheckbox = true;
+    bool RTL = false;
+    bool _enable = true;
+    bool showIcon = true;
+    bool showHeader = true;
+    bool enableVirtualization = true;
+    string widthVal { get; set; } = "250px";
+    string heightVal { get; set; } = "400px";
+    private string cssClass { get; set; } = "Hello";
+    string HeaderVal = "Header Title";
+    int liCount = 0;
+    SortOrder sortOrder = SortOrder.None;
+    List<bool> checkboxState = new List<bool>() { true, false };
+    List<bool> RTLState = new List<bool>() { false, true };
+
+    Dictionary<string, object> htmlAttribute = new Dictionary<string, object>()
+{
+        {"class", "list" },
+        {"title", "syncfusion ListView" },
+        {"style", "border: 1px solid grey;" },
+        {"name", "ListView Component" }
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            liCount = await JS.InvokeAsync<int>("ListViewCreated", new object[] { });
+            StateHasChanged();
+        }
+    }
+    public void cbPosChange(ChangeEventArgs e)
+    {
+        chkPosition = (CheckBoxPosition)Enum.Parse(typeof(CheckBoxPosition), e.Value.ToString());
+        StateHasChanged();
+    }
+
+    public void CheckChange(ChangeEventArgs e)
+    {
+        toggleCheckbox = bool.Parse(e.Value.ToString());
+        //toggleCheckbox = false;
+        StateHasChanged();
+    }
+
+    public void ChangeRTL(ChangeEventArgs e)
+    {
+        RTL = bool.Parse(e.Value.ToString());
+        StateHasChanged();
+    }
+
+    public void toggleHeader(ChangeEventArgs e)
+    {
+        showHeader = bool.Parse(e.Value.ToString());
+        StateHasChanged();
+    }
+
+    public void ChangeIconState(ChangeEventArgs e)
+    {
+        showIcon = bool.Parse(e.Value.ToString());
+        StateHasChanged();
+    }
+
+    public void virtualChange(ChangeEventArgs e)
+    {
+        enableVirtualization = bool.Parse(e.Value.ToString());
+        StateHasChanged();
+    }
+
+    private void onChange(ChangeEventArgs args)
+    {
+        cssClass = (string)args.Value;
+        StateHasChanged();
+    }
+
+    private void onWidthChange(ChangeEventArgs args)
+    {
+        widthVal = (string)args.Value;
+        StateHasChanged();
+    }
+
+    private void HeaderChange(ChangeEventArgs args)
+    {
+        HeaderVal = (string)args.Value;
+        StateHasChanged();
+    }
+
+    private void onHeightChange(ChangeEventArgs args)
+    {
+        heightVal = (string)args.Value;
+        StateHasChanged();
+    }
+    private void ChangeEnable(ChangeEventArgs e)
+    {
+        _enable = bool.Parse(e.Value.ToString());
+        StateHasChanged();
+    }
+
+    private void ChangeSortOrder(ChangeEventArgs e)
+    {
+        sortOrder = (SortOrder)Enum.Parse(typeof(SortOrder), e.Value.ToString());
+        //sortOrder = SortOrder.Descending;
+        StateHasChanged();
+    }
+
+    private void HTMLAttrChange(MouseEventArgs e)
+    {
+        htmlAttribute = new Dictionary<string, object>()
+{
+        {"class", "listChanged" },
+        {"title", "syncfusion ListView Changed" },
+        {"style", "border: 1px solid red;" },
+        {"name", "ListView Changed" }
+    };
+    }
+    Random rng = new Random();
+
+    private void UpdateDataSource(MouseEventArgs e)
+    {
+        List<DataModel> ListData = new List<DataModel>() { };
+        ListData.Add(
+           new DataModel
+           {
+               Id = rng.Next().ToString(),
+               Text = "New ListItem",
+               Icon = "folder",
+               Child = new List<DataModel>
+            () {
+                        new DataModel { Id= rng.Next().ToString(), Text= "UI-Guide.pdf", Icon= "file" },
+                       }
+           });
+        List<DataModel> ListDataVirtual = new List<DataModel>() { };
+        ListDataVirtual.Add(new DataModel
+        {
+            Text = "New List Item",
+            Id = rng.Next().ToString(),
+            Icon = "folder"
+        });
+        List<DataTemplateModel> ListTemplateData = new List<DataTemplateModel>() { };
+        ListTemplateData.Add(new DataTemplateModel { Name = "newItem " + rng.Next().ToString(), Contact = "(206) 555-1189", Id = rng.Next().ToString(), Image = "https://ej2.syncfusion.com/demos/src/grid/images/8.png", Category = "Experience" });
+        StateHasChanged();
+    }
+
+    private async Task ActionCompleted(ActionEventsArgs e)
+    {
+        liCount = await JS.InvokeAsync<int>("ListViewCreated", new object[] { });
+        StateHasChanged();
+    }
+}
+
+<style>
+    th, td {
+        padding: 3px;
+        border: 1px solid lightgrey;
+        color: red;
+    }
+
+    table {
+        font-size: 10px;
+    }
+
+    .e-listview .e-list-icon {
+        height: 24px;
+        width: 30px;
+    }
+
+    .folder, .file {
+        background-repeat: no-repeat;
+        background-image: url('https://blazor.syncfusion.com/demos/images/listview/file-icons.png');
+        background-position: -5px -466px;
+        background-size: 302%;
+    }
+
+    .e-listview.e-control {
+        width: 400px;
+    }
+
+    #List .e-list-group-item {
+        height: 56px;
+        line-height: 56px;
+    }
+
+    #List .count {
+        float: right;
+    }
+
+    .nestedlist {
+        max-width: 500px;
+        margin: auto;
+        border: 1px solid #dddddd;
+        border-radius: 3px;
+    }
+
+    .inLi {
+        display: inline-block;
+        margin: 20px;
+    }
+     .sf-license-warning {
+        display: none;
+    }
+</style>

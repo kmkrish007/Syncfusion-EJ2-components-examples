@@ -1,0 +1,34 @@
+﻿@page "/documents/jsondata"
+@using Syncfusion.Blazor.Lists
+
+<SfListView DataSource="@Data">
+    <ListViewFieldSettings TValue="DataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+</SfListView>
+
+@code {
+    public string HeaderTitle = "Listview";
+
+    List<DataModel> Data = new List<DataModel>();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Data.Add(new DataModel { Text = "Hennessey Venom", Id = "list-01" });
+        Data.Add(new DataModel { Text = "Bugatti Chiron", Id = "list-02" });
+        Data.Add(new DataModel { Text = "Bugatti Veyron Super Sport", Id = "list-03" });
+        Data.Add(new DataModel { Text = "SSC Ultimate Aero", Id = "list-04" });
+        Data.Add(new DataModel { Text = "Koenigsegg CCR", Id = "list-05" });
+        Data.Add(new DataModel { Text = "McLaren F1", Id = "list-06" });
+        Data.Add(new DataModel { Text = "Aston Martin One- 77", Id = "list-07" });
+        Data.Add(new DataModel { Text = "Jaguar XJ220", Id = "list-08" });
+        Data.Add(new DataModel { Text = "McLaren P1", Id = "list-09" });
+        Data.Add(new DataModel { Text = "Ferrari LaFerrari", Id = "list-10" });
+    }
+
+    class DataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+    }
+
+}

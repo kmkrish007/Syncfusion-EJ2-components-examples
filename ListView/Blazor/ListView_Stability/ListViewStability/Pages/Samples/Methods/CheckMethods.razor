@@ -1,0 +1,108 @@
+﻿@page "/methods/checkmethods"
+@using Syncfusion.Blazor.Lists
+
+<div id="container">
+    <button id="checkitem" @onclick="@CheckItemMethod">CheckItem method</button>
+    <button id="checkall" @onclick="@CheckAllItems">CheckAll method</button>
+    <button id="uncheckitem" @onclick="@UnCheckItemMethod">UnCheckItem method</button>
+    <button id="uncheckall" @onclick="@UnCheckAllItems">UnCheckAll method</button>
+    <div class="flex vertical-center">
+        <div class="padding">
+            <SfListView ID="Listview" @ref="listInstance" DataSource="@DataSource" Width="300px" ShowCheckBox="true">
+                <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+                <ListViewEvents TValue="ListDataModel">
+                </ListViewEvents>
+            </SfListView>
+        </div>
+    </div>
+</div>
+
+@code
+{ SfListView<ListDataModel> listInstance;
+    List<string> Events = new List<string>();
+
+    List<ListDataModel> DataSource = new List<ListDataModel>() {
+    new ListDataModel { Id = "1", Text = "Text 1" },
+    new ListDataModel { Id = "2", Text = "Text 2" },
+    new ListDataModel { Id = "3", Text = "Text 3" },
+    new ListDataModel { Id = "4", Text = "Text 4" },
+    new ListDataModel { Id = "5", Text = "Text 5" },
+    new ListDataModel { Id = "6", Text = "Text 6" },
+    new ListDataModel { Id = "7", Text = "Text 7" },
+};
+
+    class ListDataModel
+    {
+        public string Id
+        {
+            get;
+            set;
+        }
+        public string Text
+        {
+            get;
+            set;
+        }
+    }
+
+    private void CheckItemMethod(MouseEventArgs e)
+    {
+        this.listInstance.CheckItem(new ListDataModel { Id = "7", Text = "Text 7" });
+    }
+
+    private void UnCheckItemMethod(MouseEventArgs e)
+    {
+        this.listInstance.UncheckItem(new ListDataModel { Id = "7", Text = "Text 7" });
+    }
+
+    private void CheckAllItems(MouseEventArgs e)
+    {
+        this.listInstance.CheckAllItems();
+    }
+
+    private void UnCheckAllItems(MouseEventArgs e)
+    {
+        this.listInstance.UncheckAllItems();
+    }
+}
+<style>
+    #container .e-listview {
+        box-shadow: 0 1px 4px #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .tracker {
+        max-height: 250px;
+        overflow: auto;
+    }
+
+    .sample {
+        justify-content: center;
+        min-height: 280px;
+        width: 750px;
+    }
+
+    .vertical-center {
+        align-items: center;
+    }
+
+    .padding {
+        padding: 4px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex__center {
+        justify-content: center;
+    }
+
+    .margin {
+        margin: 10px;
+    }
+
+     .sf-license-warning {
+        display: none;
+    }
+</style>

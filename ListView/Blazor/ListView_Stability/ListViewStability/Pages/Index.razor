@@ -1,0 +1,107 @@
+﻿@page "/"
+@using System.IO
+@using Data
+@using Newtonsoft.Json
+
+<div class="component-container">
+    @foreach (var compName in SampleData.Keys)
+    {
+        <div class="component-item comp-@compName.ToLower()">
+            <h3>@compName</h3>
+
+            @if (SampleData.TryGetValue(compName, out List<string> fileNames))
+            {
+                <ol>
+                    @foreach (var item in fileNames)
+                    {
+                        <li>
+                            <a href="@item">@(item.Substring(item.LastIndexOf('/') + 1))</a>
+                        </li>
+                    }
+                </ol>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    Dictionary<string, List<string>> SampleData = new Dictionary<string, List<string>>();
+
+    protected override void OnInitialized()
+    {
+        SampleService.Samples = new List<string>();
+        string[] files = Directory.GetFiles(System.Environment.CurrentDirectory + "\\Pages\\Samples", "*.razor", SearchOption.AllDirectories);
+        foreach (var file in files)
+        {
+            string filename = file.Split(new string[] { "\\Samples" }, StringSplitOptions.None)[1]
+                .Replace("\\\\", "/").Replace("\\", "/").Replace(".razor", "");
+            int position = filename.LastIndexOf('/');
+            string componentName = filename.Substring(1, position - 1);
+            if (!SampleData.ContainsKey(componentName))
+            {
+                SampleData.Add(componentName, new List<string>() { filename });
+            }
+            else
+            {
+                SampleData.TryGetValue(componentName, out List<string> value);
+                value.Add(filename);
+            }
+            SampleService.Samples.Add(filename);
+            // Console.WriteLine(filename + " >>>>> " + filename.LastIndexOf('/') + " >> into >> " + filename.Substring(filename.LastIndexOf('/') + 3));
+        }
+        string JsonData = JsonConvert.SerializeObject(SampleData);
+
+        try
+        {
+            System.IO.File.WriteAllText(System.Environment.CurrentDirectory + @"\routes.json", JsonData);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+
+        base.OnInitialized();
+    }
+}
+
+<style>
+    .component-container {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .component-item {
+        padding: 10px 30px;
+        margin: 15px 20px;
+    }
+
+    .component-container .comp-listview {
+        order: 1;
+    }
+
+    .component-container .comp-treeview {
+        order: 2;
+    }
+
+    .component-container .comp-heatmap {
+        order: 3;
+    }
+
+    .component-container .comp-slider {
+        order: 4;
+    }
+
+    .component-container .comp-chips {
+        order: 5;
+    }
+
+    .component-container .comp-tooltip {
+        order: 6;
+    }
+
+    .component-container ol {
+        margin-left: -25px;
+    }
+</style>

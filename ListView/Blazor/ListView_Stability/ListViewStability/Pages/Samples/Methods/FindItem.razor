@@ -1,0 +1,62 @@
+﻿@page "/methods/finditem"
+
+@using Syncfusion.Blazor.Lists
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
+
+<button id="find" @onclick="@FindListItem">Find Item</button>
+<div style="display: flex">
+    <div class="margin">
+        <SfListView ID="Listview" @ref="@SfList"
+                    DataSource="@DataSource"
+                    ShowCheckBox="true">
+            <ListViewFieldSettings TValue="ListDataModel" Id="Id" Text="Text"></ListViewFieldSettings>
+        </SfListView>
+    </div>
+    <p>@findItemDetails</p>
+</div>
+
+@code
+{
+    string findItemDetails = "";
+    SfListView<ListDataModel> SfList;
+
+    List<ListDataModel> SelectedItems = new List<ListDataModel>();
+
+    List<ListDataModel> DataSource = new List<ListDataModel>()
+{
+        new ListDataModel{ Id = "1", Text = "Artwork"},
+        new ListDataModel{ Id = "2", Text = "Abstract"},
+        new ListDataModel{ Id = "3", Text = "Modern Painting"},
+        new ListDataModel{ Id = "4", Text = "Ceramics"},
+        new ListDataModel{ Id = "5", Text = "Animation Art"},
+        new ListDataModel{ Id = "6", Text = "Oil Painting"},
+    };
+
+    private void FindListItem()
+    {
+        findItemDetails = JsonSerializer.Serialize(this.SfList.FindItem(new ListDataModel { Id = "6", Text = "Oil Painting" }));
+    }
+
+    class ListDataModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+    }
+
+}
+
+<style>
+    .margin {
+        margin: 10px;
+        width: 300px;
+    }
+
+    .padding {
+        padding: 10px 0;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>

@@ -1,0 +1,19 @@
+﻿@page "/documents/remotedata"
+@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Data
+
+<SfListView HeaderTitle="Products" ShowHeader="true" TValue="Data" Query="@query">
+    <ListViewFieldSettings TValue="Data" Id="ProductID" Text="ProductName"></ListViewFieldSettings>
+    <SfDataManager Url="https://services.odata.org/V4/Northwind/Northwind.svc/" Adaptor="Adaptors.ODataV4Adaptor"></SfDataManager>
+</SfListView>
+
+@code { public static List<string> column = new List<string>()
+{
+        "ProductID","ProductName"
+    };
+            Query query = new Query().From("Products").Select(column).Take(6);
+            public class Data
+            {
+                public string ProductID { get; set; }
+                public string ProductName { get; set; }
+            } }

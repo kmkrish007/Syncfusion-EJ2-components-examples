@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Samples\SampleBrowser\16Events.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Samples\Methods\AddItem.razor" />
+    <None Include="Pages\Samples\Methods\CheckMethods.razor" />
+    <None Include="Pages\Samples\Methods\Dispose.razor" />
+    <None Include="Pages\Samples\Methods\EnableDisable.razor" />
+    <None Include="Pages\Samples\Methods\FindItem.razor" />
+    <None Include="Pages\Samples\Methods\GetCheckedItems.razor" />
+    <None Include="Pages\Samples\Methods\GetSelectedItems.razor" />
+    <None Include="Pages\Samples\Methods\RemoveItems.razor" />
+    <None Include="Pages\Samples\Methods\ShowHide.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="D:\EJ2\Source\ej2-blazor-source-hotfix\Syncfusion.Blazor\Syncfusion.Blazor.csproj" />
+  </ItemGroup>
+
+</Project>
