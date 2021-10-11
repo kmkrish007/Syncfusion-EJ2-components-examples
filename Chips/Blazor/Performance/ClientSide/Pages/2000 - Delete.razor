@@ -1,0 +1,30 @@
+﻿@page "/2000del"
+
+
+@using Syncfusion.Blazor.Buttons
+
+<SfChip EnableDelete="true">
+    <ChipItems>
+        @foreach (var item in Items)
+        {
+            <ChipItem Text="@item.Name"></ChipItem>
+        }
+    </ChipItems>
+</SfChip>
+
+@code{
+
+    public class ChipData
+    {
+        public string Name { get; set; }
+    }
+    public List<ChipData> Items { get; set; }
+    protected override void OnInitialized()
+    {
+        Items = Enumerable.Range(1, 2000).Select(x => new ChipData()
+        {
+            Name = "Item" + x,
+        }).ToList();
+    }
+
+}
